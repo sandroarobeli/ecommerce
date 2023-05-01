@@ -1,13 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+input,
+select,
+textarea {
+  @apply rounded border p-2 outline-none bg-indigo-50;
+}
+
+.font-oswald {
+  font-family: "OswaldVariable", sans-serif;
+  font-weight: 400;
+}
+
+.font-roboto {
+  font-family: "RobotoVariable", sans-serif;
+  font-weight: 400;
+}
+
+.card {
+  @apply mb-4 block rounded-lg border border-gray-200 shadow-md;
+}
+
+.btn {
+  @apply text-lg font-oswald font-semibold h-[30px] rounded border-0;
+}
+
+.btn.btn-main {
+  @apply text-lg font-oswald font-semibold bg-amber-300 hover:bg-amber-400 active:bg-amber-500 h-[30px] rounded;
+}
+
+.btn.btn-outline {
+  @apply border-[1px] border-black hover:text-black hover:bg-gray-100 active:text-black active:bg-gray-200;
+}
+
+.btn.btn-error {
+  @apply text-lg font-oswald font-semibold h-[30px] rounded border-0 text-white bg-red-500 hover:bg-red-600 active:bg-red-700;
+}
+
+/* CONTINUE ADDING CUSTOM CLASSES AS I GO */

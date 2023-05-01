@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String @unique
+  password  String
+  isAdmin   Boolean @default(false)
+  orders Order[] 
+  reviews Review[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt 
+}
+
+model Product {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String 
+  slug        String @unique
+  category    String
+  image       String
+  price       Float
+  brand       String
+  productRating      Float @default(0)
+  numberOfReviews     Int @default(0)
+  reviews Review[]
+  inStock     Int @default(0)
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt   
+}
+
+model Review {
+  id                              String @id @default(auto()) @map("_id") @db.ObjectId
+  product Product                 @relation(fields: [productId], references: [id])
+  productId                       String  @db.ObjectId
+  author User                     @relation(fields: [authorId], references: [id])
+  authorId                        String  @db.ObjectId 
+  authorName                      String 
+  reviewRating                          Float @default(0)  
+  content                         String?
+  createdAt                       DateTime @default(now())
+  updatedAt                       DateTime @updatedAt
+}
+
+model Order {
+  id                              String @id @default(auto()) @map("_id") @db.ObjectId
+  orderItems OrderItem[] 
+  shippingAddress ShippingAddress
+  paymentMethod                   String
+  itemsTotal                      Float
+  taxTotal                        Float
+  shippingTotal                   Float
+  grandTotal                      Float
+  isPaid                          Boolean @default(false)
+  isDelivered                     Boolean @default(false)
+  paidAt                          DateTime? 
+  deliveredAt                     DateTime? 
+  paymentResult PaymentResult
+  owner User                      @relation(fields: [ownerId], references: [id])
+  ownerId                         String  @db.ObjectId 
+  createdAt                       DateTime @default(now())
+}
+
+type OrderItem {
+  name     String 
+  quantity Int
+  image    String
+  price    Float
+}
+
+type ShippingAddress {
+  fullName String
+  address  String
+  city     String
+  state    String
+  zip      String
+  phone    String
+}
+
+type PaymentResult {
+  paypalId String
+  status String
+  email_address String 
+}
