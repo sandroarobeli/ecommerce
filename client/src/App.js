@@ -1,24 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import "@fontsource/oswald/variable.css";
 
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
+// START DEVELOPING LAYOUT AND SEE THE NOTES IN INDEX.CSS ABOUT MOVING BODY CSS TO LAYOUT'S
+// OUTER DIV CSS. ALSO, TEST LIGHTHOUSE EVERY STEP OF THE WAY. GOOD LUCK!!!
+// TODAY, SUNDAY: DO THE HOME PAGE. START WITH SERVER, DB, GET WITH PAGINATION, UI PAGINATION
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Routes>
+        <Route path="" exact element={<Home />} />
+      </Routes>
+    </Layout>
   );
 }
 
