@@ -34,23 +34,35 @@ textarea {
 }
 
 .card {
-  @apply mb-4 block rounded-lg border border-gray-200 shadow-md;
+  @apply block rounded-lg border border-gray-200 shadow-md;
 }
 
-.btn {
-  @apply text-lg font-oswald font-semibold h-[30px] rounded border-0;
+.primary-button {
+  @apply rounded px-4 py-2 shadow outline-none font-oswald font-semibold uppercase bg-amber-300 hover:bg-amber-400 transition-all active:bg-amber-500 active:scale-95;
 }
 
-.btn.btn-main {
-  @apply text-lg font-oswald font-semibold bg-amber-300 hover:bg-amber-400 active:bg-amber-500 h-[30px] rounded;
+.outline-button {
+  @apply rounded px-4 py-2 shadow outline outline-offset-0 outline-1 outline-black font-oswald font-semibold uppercase bg-gray-100 hover:bg-gray-200 transition-all active:bg-gray-300 active:scale-95;
 }
 
-.btn.btn-outline {
-  @apply border-[1px] border-black hover:text-black hover:bg-gray-100 active:text-black active:bg-gray-200;
+.error-button {
+  @apply rounded px-4 py-2 shadow outline-none font-oswald font-semibold uppercase text-white bg-red-500 hover:bg-red-600 transition-all active:bg-red-700 active:scale-95;
 }
 
-.btn.btn-error {
-  @apply text-lg font-oswald font-semibold h-[30px] rounded border-0 text-white bg-red-500 hover:bg-red-600 active:bg-red-700;
+.dropdown-link {
+  @apply flex justify-center py-2 hover:bg-black hover:text-white;
 }
-
 /* CONTINUE ADDING CUSTOM CLASSES AS I GO */
+
+/* Modal and CSSTransition classes */
+.modal {
+  @apply fixed top-0 right-0 bottom-0 left-0 bg-black/50 flex justify-center items-center opacity-0 transition-all ease-in-out duration-300 pointer-events-none;
+}
+
+.modal.enter-done {
+  @apply opacity-100 pointer-events-auto;
+}
+
+.modal.exit {
+  @apply opacity-0;
+}
