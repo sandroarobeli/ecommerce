@@ -1,23 +1,23 @@
 const prisma = require("../../db");
 
-// WHAT TO DO: IMPLEMENT REDUX. IMPLEMENT UI
-// CHECK OUT APPLICATION AUTOMATICALLY RESTARTS
-// https://expressjs.com/en/advanced/best-practice-performance.html
-// CHECK OUT SERVING CLIENT AND SERVER OUT OF SAME DOMAIN FOR LATER (WHEN I DEPLOY)
-// AS PER MULLER PLACES APP VIDEOS SHOW!!!
-
 async function getAllProducts(req, res, next) {
+  const { page } = req.params;
+
   try {
+    if (page < 1) return;
     const products = await prisma.product.findMany({
+      skip: 12 * (page - 1),
+      take: 12,
       orderBy: {
         createdAt: "desc",
       },
     });
     res.set("Cache-Control", "no-cache");
+    // res.set("Cache-Control", "public, max-age=360000"); // testing which has better performance
     res.status(200).json(products);
   } catch (error) {
-    // return next(new Error("Failed to retrieve products"));
-    return next(new Error(error.message)); // For testing
+    return next(new Error("Failed to retrieve products"));
+    // return next(new Error(error.message)); // For testing
   }
 }
 

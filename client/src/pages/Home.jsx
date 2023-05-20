@@ -1,26 +1,84 @@
-// import { Link } from "react-router-dom";
-import ErrorMessage from "../components/ErrorMessage";
+import { useState, useEffect } from "react";
+import { useGetAllProductsQuery } from "../redux/apiSlice";
+import MessageDisplay from "../components/MessageDisplay";
+import DynamicTitle from "../components/DynamicTitle";
+import Spinner from "../components/Spinner";
+import Carousel from "../components/Carousel";
+import ProductItem from "../components/ProductItem";
+import Pagination from "../components/Pagination";
+
+// NOTE: FOLLOW BASSIR'S LESSONS FOR PAGE SEQUENCE TO STAY CONSISTENT
+// ALWAYS: !!!TEST LIGHTHOUSE ON EVERY PAGE COMPLETION!!!
+
+// FOR LATER:
+// ==> DELETE IMPORTED ONE ==> CREATE MY OWN TOAST MODALS
+
+// ******************************************************************************
+// ******************************************************************************
+// SERVER: CHECK OUT APPLICATION AUTOMATICALLY RESTARTS.
+// TEST BY CREATING UNCAUGHT EXCEPTION AND SEE IF IT RE STARTS AUTOMATICALLY!!!
+// https://expressjs.com/en/advanced/best-practice-performance.html
+// CHECK OUT SERVING CLIENT AND SERVER OUT OF SAME DOMAIN FOR LATER (WHEN I DEPLOY)
+// AS PER MULLER PLACES APP VIDEOS SHOW!!!
+
+// AT SOME POINT FIND GREAT PICS OF CLOTHING ON UNSPLASH, ADJUST SIZING FOR THIS APP AND
+// ADD HERE. DELETE THESE OLD UGLY ONES
 
 export default function Home() {
+  const [page, setPage] = useState(1);
+  const {
+    data: products,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetAllProductsQuery(page);
+
+  // Auto scrolls to the top on page change
+  useEffect(() => {
+    const body = document.querySelector("#root");
+
+    body.scrollIntoView(
+      {
+        behavior: "smooth",
+      },
+      5000
+    );
+  }, [page]);
+
   return (
-    <ErrorMessage message="Unknown error has ocurred. Please try again later" />
+    <>
+      <DynamicTitle title="Home" />
+      {isLoading && <Spinner />}
+      {isError && (
+        <MessageDisplay
+          title="Error:"
+          message={
+            error?.data?.message ||
+            "Unknown error has ocurred. Please try again later"
+          }
+          className="bg-red-100 text-red-800"
+        />
+      )}
+      {isSuccess && (
+        <div className="flex flex-col justify-between min-h-screen font-roboto">
+          <Carousel products={products} />
+          <h2 className="mb-4 text-lg font-semibold">
+            {products?.length === 0
+              ? "For products, navigate to previous pages"
+              : "Latest Products"}
+          </h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-4">
+            {products?.map((product) => (
+              <ProductItem key={product.slug} product={product} />
+            ))}
+          </div>
+          <Pagination
+            toPrevPage={() => setPage((prevPage) => prevPage - 1)}
+            toNextPage={() => setPage((prevPage) => prevPage + 1)}
+          />
+        </div>
+      )}
+    </>
   );
 }
-
-/*
-<h1 className="font-oswald text-xl">Satis factum para bellum. MENU</h1>
-
-      <h1 className="font-roboto">Satis factum para bellum. MENU</h1>
-      <h2 className="text-xl">This is an H2 tag</h2>
-      <button className="btn btn-main text-black mx-4">Add to Cart</button>
-      <button className="btn glass bg-gray-500 text-white mx-4">
-        Add to Cart
-      </button>
-      <button className="btn btn-outline min-w-[150px]">Cancel</button>
-      <div className="w-56 mt-12">
-        <button className="btn btn-block mx-4">Add to Cart</button>
-      </div>
-      <div className="w-56 mt-12">
-        <button className="btn btn-error mx-4">Add to Cart</button>
-      </div>
-*/

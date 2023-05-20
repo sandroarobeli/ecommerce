@@ -6,6 +6,6 @@ const getAllProducts = require("../controllers/products/getAllProducts");
 const router = express.Router();
 
 // List all current products. Manages Skip & Take for pagination
-router.get("/", getAllProducts);
+router.get("/pagination/:page", getAllProducts);
 
 module.exports = router;
