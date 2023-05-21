@@ -4,12 +4,14 @@ import "@fontsource/oswald/variable.css";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
+import ProductDetail from "./pages/ProductDetail";
 
 function App() {
   return (
     <Layout>
       <Routes>
         <Route path="" exact element={<Home />} />
+        <Route path="product/:slug" exact element={<ProductDetail />} />
         <Route path="cart" exact element={<Cart />} />
       </Routes>
     </Layout>

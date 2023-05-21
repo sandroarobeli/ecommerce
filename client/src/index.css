@@ -79,3 +79,10 @@ textarea {
 .alert.exit {
   @apply opacity-0;
 }
+
+/* Message display variants */
+.alert-error {
+  @apply bg-red-100 text-red-800;
+}
+.alert-success {
+}
