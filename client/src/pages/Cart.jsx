@@ -2,7 +2,6 @@
 // import Spinner from "../components/Spinner";
 import { useState } from "react";
 import DynamicTitle from "../components/DynamicTitle";
-import SearchIcon from "../components/icons/SearchIcon";
 import Alert from "../components/Alert";
 
 export default function Cart() {

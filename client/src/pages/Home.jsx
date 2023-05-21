@@ -10,7 +10,7 @@ import Pagination from "../components/Pagination";
 // NOTE: FOLLOW BASSIR'S LESSONS FOR PAGE SEQUENCE TO STAY CONSISTENT
 // ALWAYS: !!!TEST LIGHTHOUSE ON EVERY PAGE COMPLETION!!!
 
-// FOR LATER:
+// NEXT: DO PRODUCT PAGE AND READ UP ON PROJECT MANAGER
 
 // ******************************************************************************
 // ******************************************************************************
@@ -56,7 +56,7 @@ export default function Home() {
             error?.data?.message ||
             "Unknown error has ocurred. Please try again later"
           }
-          className="bg-red-100 text-red-800"
+          className="alert-error"
         />
       )}
       {isSuccess && (
