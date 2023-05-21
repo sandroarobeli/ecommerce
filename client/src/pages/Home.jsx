@@ -11,7 +11,6 @@ import Pagination from "../components/Pagination";
 // ALWAYS: !!!TEST LIGHTHOUSE ON EVERY PAGE COMPLETION!!!
 
 // FOR LATER:
-// ==> DELETE IMPORTED ONE ==> CREATE MY OWN TOAST MODALS
 
 // ******************************************************************************
 // ******************************************************************************

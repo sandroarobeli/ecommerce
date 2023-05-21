@@ -13,6 +13,8 @@ export default function Modal({
   clearMessage,
   children,
 }) {
+  const nodeRef = useRef(null);
+
   const closeOnEscapeKeyDown = (event) => {
     if ((event.charCode || event.keyCode) === 27) {
       onClose();
@@ -26,8 +28,6 @@ export default function Modal({
       document.body.addEventListener("keydown", closeOnEscapeKeyDown);
     };
   });
-
-  const nodeRef = useRef(null);
 
   return createPortal(
     <CSSTransition
