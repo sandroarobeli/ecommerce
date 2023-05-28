@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { Rating } from "react-simple-star-rating";
 
@@ -6,11 +6,10 @@ import { useGetProductBySlugQuery } from "../redux/apiSlice";
 import DynamicTitle from "../components/DynamicTitle";
 import Spinner from "../components/Spinner";
 import MessageDisplay from "../components/MessageDisplay";
+import AddToCartButton from "../components/AddToCartButton";
 
 export default function ProductDetail() {
-  const navigate = useNavigate();
   const { slug } = useParams();
-
   const [showReviews, setShowReviews] = useState(true);
 
   const {
@@ -21,7 +20,6 @@ export default function ProductDetail() {
     error,
   } = useGetProductBySlugQuery(slug);
 
-  console.log("product", product); // test
   return (
     <div>
       <DynamicTitle title={product?.name || "Product Page"} />
@@ -72,9 +70,7 @@ export default function ProductDetail() {
                           {product.numberOfReviews !== 0 && (
                             <button
                               className={`ml-4 ${
-                                showReviews
-                                  ? "text-amber-300 hover:text-amber-400 active:text-amber-500"
-                                  : "text-gray-400 hover:text-gray-500 active:text-gray-600"
+                                showReviews ? "text-amber-600" : "text-gray-500"
                               }`}
                               onClick={() =>
                                 setShowReviews((prevState) => !prevState)
@@ -171,12 +167,7 @@ export default function ProductDetail() {
                   <div>Status</div>
                   <div>{product.inStock > 0 ? "In stock" : "Sold out"}</div>
                 </div>
-                <button
-                  aria-label="Add to cart"
-                  className="primary-button w-full"
-                >
-                  Add to Cart
-                </button>
+                <AddToCartButton product={product} />
               </div>
             </div>
           </div>
@@ -185,7 +176,3 @@ export default function ProductDetail() {
     </div>
   );
 }
-
-/**
- <AddToCartButton product={product} />
- */

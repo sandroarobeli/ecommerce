@@ -86,3 +86,7 @@ textarea {
 }
 .alert-success {
 }
+
+.custom-select {
+  @apply w-14 border-gray-300 bg-indigo-50 text-black text-right text-lg;
+}

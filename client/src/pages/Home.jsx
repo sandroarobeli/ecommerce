@@ -1,4 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { setPage, selectPage } from "../redux/pageSlice";
 import { useGetAllProductsQuery } from "../redux/apiSlice";
 import MessageDisplay from "../components/MessageDisplay";
 import DynamicTitle from "../components/DynamicTitle";
@@ -10,8 +13,8 @@ import Pagination from "../components/Pagination";
 // NOTE: FOLLOW BASSIR'S LESSONS FOR PAGE SEQUENCE TO STAY CONSISTENT
 // ALWAYS: !!!TEST LIGHTHOUSE ON EVERY PAGE COMPLETION!!!
 
-// NEXT: DO PRODUCT PAGE AND READ UP ON PROJECT MANAGER
-
+// NEXT: . DECIDE ON NEXT MOVE. CLEAN UP THE CODE!!!
+// REMEMBER: RETURN TO PRODUCT DETAIL PAGE ONCE I HAVE LOGIN DONE (ADD REVIEW FORM IS MISSING)
 // ******************************************************************************
 // ******************************************************************************
 // SERVER: CHECK OUT APPLICATION AUTOMATICALLY RESTARTS.
@@ -24,7 +27,10 @@ import Pagination from "../components/Pagination";
 // ADD HERE. DELETE THESE OLD UGLY ONES
 
 export default function Home() {
-  const [page, setPage] = useState(1);
+  const dispatch = useDispatch();
+  // The page and setPage need to be global, because Cart uses them as well and it can't have pagination
+  const page = useSelector(selectPage);
+
   const {
     data: products,
     isLoading,
@@ -73,8 +79,10 @@ export default function Home() {
             ))}
           </div>
           <Pagination
-            toPrevPage={() => setPage((prevPage) => prevPage - 1)}
-            toNextPage={() => setPage((prevPage) => prevPage + 1)}
+            toPrevPage={() => dispatch(setPage(page - 1))}
+            toNextPage={() => dispatch(setPage(page + 1))}
+            // toPrevPage={() => setPage((prevPage) => prevPage - 1)}
+            // toNextPage={() => setPage((prevPage) => prevPage + 1)}
           />
         </div>
       )}
