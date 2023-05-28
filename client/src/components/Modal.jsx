@@ -71,7 +71,7 @@ export default function Modal({
             ) : (
               <button
                 aria-label="Clear message"
-                className="text-black font-semibold active:scale-95 w-full py-3"
+                className="text-black font-semibold active:scale-90 w-full py-3"
                 onClick={clearMessage}
               >
                 OK

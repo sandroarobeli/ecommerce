@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "set NODE_ENV=production && node server.js",
-    "dev": "nodemon server.js"
+    "dev": "set NODE_ENV=production && nodemon server.js"
   },
   "author": "Alex Arobelidze",
   "license": "ISC",

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Rating } from "react-simple-star-rating";
 
-// import AddToCartButton from "./AddToCartButton";
+import AddToCartButton from "./AddToCartButton";
 
 export default function ProductItem({ product }) {
   return (
@@ -39,12 +39,8 @@ export default function ProductItem({ product }) {
         </Link>
         <p className="mb-2">{product.brand}</p>
         <p>${product.price.toFixed(2)}</p>
-
-        <button aria-label="Add to cart" className="primary-button w-full">
-          Add to Cart
-        </button>
+        <AddToCartButton product={product} />
       </div>
     </div>
   );
 }
-/*<AddToCartButton product={product} />*/

@@ -59,6 +59,9 @@ export default function Carousel({ products }) {
             fetchpriority={`${index === 0 ? "high" : "low"}`}
             className="w-full h-[350px] object-cover object-center cursor-pointer"
           />
+          <h1 className="text-amber-500 my-2 absolute bottom-0 min-w-full text-center font-oswald text-3xl">
+            {product.name}
+          </h1>
         </Link>
       ))}
       <button

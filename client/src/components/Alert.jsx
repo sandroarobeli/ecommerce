@@ -45,10 +45,10 @@ export default function Alert({ show, onClose, message }) {
     >
       <div className="alert" onClick={onClose} ref={nodeRef}>
         <div
-          className="w-auto px-6 py-4 fixed bottom-1/4 bg-green-600 text-white rounded-lg truncate font-roboto"
+          className="w-auto px-6 py-4 fixed bottom-[10%] bg-green-600 text-white rounded-lg truncate font-roboto"
           onClick={(event) => event.stopPropagation()}
         >
-          <div className="flex justify-between">
+          <div className="flex justify-center">
             <SuccessIcon />
             <h3 className="ml-2">{message}</h3>
           </div>

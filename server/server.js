@@ -13,6 +13,9 @@ const productRoutes = require("./routes/products");
 const app = express();
 const port = process.env.PORT || 5000;
 
+// const currentEnvironment = app.get("env");
+// console.log("Current Environment:", currentEnvironment);
+
 // Registration middleware
 app.use(cors());
 app.use(express.json());

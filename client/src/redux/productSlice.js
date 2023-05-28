@@ -20,7 +20,6 @@ const productSlice = createSlice({
         apiSlice.endpoints.getAllProducts.matchFulfilled,
         (state, action) => {
           state.products = action.payload;
-          console.log("current products", state.products); // test
         }
       )
       .addMatcher(
@@ -37,7 +36,5 @@ const productSlice = createSlice({
 export const { clearProductError } = productSlice.actions;
 
 // Exports individual selectors
-// export const selectProductBySlug = (state, slug) =>
-//   state.product.products.find((item) => item.slug === slug);
-
+// None for now.. Add one for individual product if it's needed elsewhere to save on api call!
 export default productSlice.reducer;

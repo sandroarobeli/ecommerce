@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
+import { selectAllItems } from "../redux/cartSlice";
 import CartIcon from "./icons/CartIcon";
 import SearchIcon from "./icons/SearchIcon";
 import UserDropdown from "./UserDropdown";
@@ -8,8 +10,15 @@ import Modal from "./Modal";
 
 export default function Header() {
   const navigate = useNavigate();
+  const allItems = useSelector(selectAllItems);
   const [query, setQuery] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  // Initialize the state so the server side delay doesn't cause mismatch in hydration
+  const [cartItemsCount, setCartItemsCount] = useState(0);
+
+  useEffect(() => {
+    setCartItemsCount(allItems.reduce((a, c) => a + c.quantity, 0));
+  }, [allItems]);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -59,18 +68,15 @@ export default function Header() {
         {/* SEARCH BAR END */}
         <div className="flex justify-between">
           <Link to="/cart" className="mr-8" aria-label="Link to cart page">
-            <CartIcon />
+            <CartIcon cartItemsCount={cartItemsCount} />
           </Link>
           <UserDropdown />
         </div>
       </nav>
       <Modal
-        title="Search Products" // For search
-        // title="Error" // For errors and info
-        description="Enter a name, brand or category" // For search
-        // description="Products cannot be displayed at this time. Please try again later" // For errors and info
-        textColor="text-black" // For search
-        // textColor="text-red-700" // For errors and info
+        title="Search Products"
+        description="Enter a name, brand or category"
+        textColor="text-black"
         twoButtons={true}
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
