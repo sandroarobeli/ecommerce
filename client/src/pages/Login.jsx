@@ -207,14 +207,13 @@ export default function Login() {
           className="font-roboto"
         ></button>
       </div>
-
       <Modal
         title="Login Error"
+        titleColor="text-red-600"
         description={
           errorMessage ||
           "An error ocurred while submitting your request. Please try again later"
         }
-        textColor="text-red-700"
         twoButtons={false}
         isOpen={modalOpen}
         onClose={handleClearError}

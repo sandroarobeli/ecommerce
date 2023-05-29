@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -12,7 +12,6 @@ import { useGetAllProductsQuery } from "../redux/apiSlice";
 import DynamicTitle from "../components/DynamicTitle";
 import XCircleIcon from "../components/icons/XCircleIcon";
 import Alert from "../components/Alert";
-import Modal from "../components/Modal";
 import Spinner from "../components/Spinner";
 import MessageDisplay from "../components/MessageDisplay";
 
@@ -21,17 +20,15 @@ export default function Cart() {
   const navigate = useNavigate();
   const allItems = useSelector(selectAllItems);
   const page = useSelector(selectPage);
-  const [modalOpen, setModalOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  const {
-    data: currentlyUnsoldProducts,
-    refetch,
-    isFetching,
-    isSuccess,
-    isError,
-    error,
-  } = useGetAllProductsQuery(page);
+  const { refetch, isFetching, isSuccess, isError, error } =
+    useGetAllProductsQuery(page);
+
+  // Auto scrolls to the top on page change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   const removeItemHandler = (item) => {
     dispatch(cartRemoveItem(item));
@@ -39,19 +36,7 @@ export default function Cart() {
 
   const updateCartHandler = async (item, quantity) => {
     refetch();
-    // available quantity condition not needed - actually, when it re fetches, it updates
-    // unsold products array, thus updating select drop down. so no need for conditional
     const quantityAdded = Number(quantity);
-    const currentlyUnsoldProduct = currentlyUnsoldProducts.find(
-      (product) => product.slug === item.slug
-    );
-    // Quantity chosen cannot exceed available stock
-    // In case while user is browsing, someone buys the product and the current quantity
-    // Drops to zero, I am using very current quantity of products via DB call
-    if (currentlyUnsoldProduct?.inStock < quantityAdded) {
-      setModalOpen(true);
-      return;
-    }
     dispatch(cartAddItem({ ...item, quantity: quantityAdded }));
     setShowAlert(true);
   };
@@ -117,7 +102,7 @@ export default function Cart() {
                         <td className="p-5 text-right">
                           <select
                             value={item.quantity}
-                            className="custom-select w-14"
+                            className="custom-select w-16"
                             onChange={(event) =>
                               updateCartHandler(item, event.target.value)
                             }
@@ -174,20 +159,9 @@ export default function Cart() {
         </div>
       )}
       <Alert
-        message={"Quantity adjusted"}
+        message={"Quantity adjusted!"}
         show={showAlert}
         onClose={() => setShowAlert(false)}
-      />
-      <Modal
-        title="Out of Stock!"
-        description="Order exceeded currently available quantity"
-        textColor="text-red-700"
-        twoButtons={false}
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        clearMessage={() => {
-          setModalOpen(false);
-        }}
       />
     </>
   );

@@ -5,7 +5,7 @@ import { CSSTransition } from "react-transition-group";
 export default function Modal({
   title,
   description,
-  textColor,
+  titleColor,
   twoButtons,
   isOpen,
   onClose,
@@ -42,10 +42,10 @@ export default function Modal({
           onClick={(event) => event.stopPropagation()}
         >
           <div className="px-4 py-4 text-left">
-            <h3 className="m-0 text-xl text-black font-semibold">{title}</h3>
-            <p
-              className={`text-base font-light whitespace-normal ${textColor}`}
-            >
+            <h3 className={`m-0 text-xl font-semibold ${titleColor}`}>
+              {title}
+            </h3>
+            <p className="text-base font-light whitespace-normal text-black">
               {description}
             </p>
           </div>

@@ -87,8 +87,8 @@ export default function AddToCartButton({ product }) {
       />
       <Modal
         title="Out of Stock!"
+        titleColor="text-red-600"
         description="Order exceeded currently available quantity"
-        textColor="text-red-700"
         twoButtons={false}
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}

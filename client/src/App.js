@@ -8,7 +8,6 @@ import "@fontsource/oswald/variable.css";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Spinner from "./components/Spinner";
-
 import {
   selectToken,
   selectTokenExpiration,
@@ -19,6 +18,9 @@ const Cart = lazy(() => import("./pages/Cart"));
 const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 const Login = lazy(() => import("./pages/Login"));
 const ShippingAddress = lazy(() => import("./pages/ShippingAddress"));
+const PaymentMethod = lazy(() => import("./pages/PaymentMethod"));
+const Inactivity = lazy(() => import("./pages/Inactivity"));
+const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 
 function App() {
   const navigate = useNavigate();
@@ -87,6 +89,11 @@ function App() {
                 element={<ShippingAddress />}
               />
             )}
+            {token && (
+              <Route path="payment-method" exact element={<PaymentMethod />} />
+            )}
+            <Route path="inactivity" exact element={<Inactivity />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Suspense>
       </Layout>

@@ -21,6 +21,11 @@ export default function ShippingAddress() {
     setValue,
   } = useForm();
 
+  // Auto scrolls to the top on page change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   useEffect(() => {
     // Pre populate the fields with user's existing data for convenience
     setValue("fullName", shippingAddress.fullName);
@@ -174,7 +179,7 @@ export default function ShippingAddress() {
           )}
         </div>
 
-        <div className="mb-4 mt-8 flex justify-between">
+        <div className="mb-4 mt-8">
           <button
             aria-label="Navigate to payment method"
             className="primary-button"

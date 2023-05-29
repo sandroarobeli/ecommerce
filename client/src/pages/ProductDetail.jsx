@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Rating } from "react-simple-star-rating";
 
@@ -19,6 +19,11 @@ export default function ProductDetail() {
     isError,
     error,
   } = useGetProductBySlugQuery(slug);
+
+  // Auto scrolls to the top on page change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   return (
     <div>
