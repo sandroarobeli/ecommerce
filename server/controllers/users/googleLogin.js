@@ -3,7 +3,7 @@ const { OAuth2Client } = require("google-auth-library");
 require("dotenv").config();
 
 const prisma = require("../../db");
-// const convertDocumentToObject = require("../../utils/docToObject");
+const convertDocumentToObject = require("../../utils/docToObject");
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 

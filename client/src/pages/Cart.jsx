@@ -117,17 +117,13 @@ export default function Cart() {
                         <td className="p-5 text-right">
                           <select
                             value={item.quantity}
-                            className="custom-select"
+                            className="custom-select w-14"
                             onChange={(event) =>
                               updateCartHandler(item, event.target.value)
                             }
                           >
                             {[...Array(item.inStock).keys()].map((number) => (
-                              <option
-                                key={number + 1}
-                                value={number + 1}
-                                // className="bg-amber-300 text-gray-900 font-semibold text-right md:text-lg"
-                              >
+                              <option key={number + 1} value={number + 1}>
                                 {number + 1}
                               </option>
                             ))}

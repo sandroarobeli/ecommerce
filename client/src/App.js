@@ -18,6 +18,7 @@ import { cartReset } from "./redux/cartSlice";
 const Cart = lazy(() => import("./pages/Cart"));
 const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 const Login = lazy(() => import("./pages/Login"));
+const ShippingAddress = lazy(() => import("./pages/ShippingAddress"));
 
 function App() {
   const navigate = useNavigate();
@@ -79,6 +80,13 @@ function App() {
             <Route path="product/:slug" exact element={<ProductDetail />} />
             <Route path="cart" exact element={<Cart />} />
             <Route path="login" exact element={<Login />} />
+            {token && (
+              <Route
+                path="shipping-address"
+                exact
+                element={<ShippingAddress />}
+              />
+            )}
           </Routes>
         </Suspense>
       </Layout>

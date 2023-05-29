@@ -13,7 +13,7 @@ import Pagination from "../components/Pagination";
 // NOTE: FOLLOW BASSIR'S LESSONS FOR PAGE SEQUENCE TO STAY CONSISTENT
 // ALWAYS: !!!TEST LIGHTHOUSE ON EVERY PAGE COMPLETION!!!
 
-// NEXT: . DECIDE ON NEXT MOVE. CLEAN UP THE CODE!!!
+// NEXT: SHIPPING PAGE. DECIDE ON NEXT MOVE. LIGHTHOUSE. CLEAN UP THE CODE!!!
 // REMEMBER: RETURN TO PRODUCT DETAIL PAGE ONCE I HAVE LOGIN DONE (ADD REVIEW FORM IS MISSING)
 // ******************************************************************************
 // ******************************************************************************
