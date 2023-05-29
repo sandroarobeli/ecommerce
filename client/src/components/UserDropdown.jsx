@@ -1,10 +1,23 @@
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import {
+  selectUserStatus,
+  selectUserName,
+  selectUserAdmin,
+  selectToken,
+  logout,
+} from "../redux/userSlice";
+import { cartReset } from "../redux/cartSlice";
 
 export default function UserDropdown() {
-  const userStatus = ""; // temp
-  const token = "present"; // temp
-  const isAdmin = false; // temp
+  const dispatch = useDispatch();
+  const userStatus = useSelector(selectUserStatus);
+  const userName = useSelector(selectUserName);
+  const isAdmin = useSelector(selectUserAdmin);
+  const token = useSelector(selectToken);
+  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
 
   const closeOnEscapeKeyDown = (event) => {
@@ -27,12 +40,11 @@ export default function UserDropdown() {
   }, []);
 
   const logoutHandler = async () => {
-    console.log("User logged out"); // temp
     // Reset cart content
-    // await dispatch(cartReset());
+    await dispatch(cartReset());
     // Sign out and return to login page
-    // await dispatch(logout());
-    // navigate("/");
+    await dispatch(logout());
+    navigate("/");
   };
 
   return (
@@ -46,7 +58,7 @@ export default function UserDropdown() {
             className="hover:scale-105 active:scale-100"
             onClick={() => setShowMenu((state) => !state)}
           >
-            ALEXANDER
+            {userName}
           </button>
           <ul
             className={`${
@@ -78,9 +90,7 @@ export default function UserDropdown() {
           </ul>
         </div>
       ) : (
-        <Link to="/login" className="hover:scale-105">
-          Login
-        </Link>
+        <Link to="/login">Login</Link>
       )}
     </div>
   );

@@ -37,6 +37,7 @@ textarea {
   @apply block rounded-lg border border-gray-200 shadow-md;
 }
 
+/* Buttons */
 .primary-button {
   @apply rounded px-4 py-2 shadow outline-none font-oswald font-semibold uppercase bg-amber-300 hover:bg-amber-400 transition-all active:bg-amber-500 active:scale-95;
 }
@@ -51,6 +52,13 @@ textarea {
 
 .dropdown-link {
   @apply flex justify-center py-2 hover:bg-black hover:text-white;
+}
+
+/* Spinner */
+.spinner {
+  position: absolute;
+  left: calc((100vw - 120px) / 2);
+  top: calc((100vh - 120px) / 2);
 }
 /* CONTINUE ADDING CUSTOM CLASSES AS I GO */
 
