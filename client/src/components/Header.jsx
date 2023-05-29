@@ -75,8 +75,8 @@ export default function Header() {
       </nav>
       <Modal
         title="Search Products"
+        titleColor="text-black"
         description="Enter a name, brand or category"
-        textColor="text-black"
         twoButtons={true}
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}

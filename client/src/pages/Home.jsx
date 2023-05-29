@@ -11,10 +11,15 @@ import ProductItem from "../components/ProductItem";
 import Pagination from "../components/Pagination";
 
 // NOTE: FOLLOW BASSIR'S LESSONS FOR PAGE SEQUENCE TO STAY CONSISTENT
-// ALWAYS: !!!TEST LIGHTHOUSE ON EVERY PAGE COMPLETION!!!
+// 1. ALWAYS: !!!TEST LIGHTHOUSE ON EVERY PAGE COMPLETION!!!
+// 2. !!!VERY IMPORTANT: MAKE SURE THE QUANTITIES OF PRODUCTS GET UPDATED ONCE
+// A USER PLACES AN ORDER. THIS WAY, QUANTITIES ARE ALWAYS UP TO DATE!!!
+// 3. REMEMBER TO ADD AND SANITIZE A FORM FOR USER REVIEWS AT SOME POINT!!!
+// (RETURN TO PRODUCT DETAIL PAGE ONCE I HAVE LOGIN DONE (ADD REVIEW FORM IS MISSING)
+// ONLY SANITIZATION(LIKE CHECK IN ROUTS) IS MISSING FROM MERN-STORE VERSION
+// 4. SEARCH CONTROLLER TO SEARCH THROUGH ALL PRODUCTS, NOT JUST PER PAGE.
 
-// NEXT: SHIPPING PAGE. DECIDE ON NEXT MOVE. LIGHTHOUSE. CLEAN UP THE CODE!!!
-// REMEMBER: RETURN TO PRODUCT DETAIL PAGE ONCE I HAVE LOGIN DONE (ADD REVIEW FORM IS MISSING)
+// NEXT:  NOT FOUND AND EXPIRE PAGES. DECIDE ON NEXT MOVE. LIGHTHOUSE. CLEAN UP THE CODE!!!
 // ******************************************************************************
 // ******************************************************************************
 // SERVER: CHECK OUT APPLICATION AUTOMATICALLY RESTARTS.
@@ -41,14 +46,7 @@ export default function Home() {
 
   // Auto scrolls to the top on page change
   useEffect(() => {
-    const body = document.querySelector("#root");
-
-    body.scrollIntoView(
-      {
-        behavior: "smooth",
-      },
-      5000
-    );
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [page]);
 
   return (
@@ -83,8 +81,6 @@ export default function Home() {
           <Pagination
             toPrevPage={() => dispatch(setPage(page - 1))}
             toNextPage={() => dispatch(setPage(page + 1))}
-            // toPrevPage={() => setPage((prevPage) => prevPage - 1)}
-            // toNextPage={() => setPage((prevPage) => prevPage + 1)}
           />
         </div>
       )}
