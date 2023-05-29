@@ -76,7 +76,8 @@ export default function Login() {
 
       google.accounts.id.renderButton(document.getElementById("signInDiv"), {
         type: "standard",
-        theme: "outline",
+        // theme: "outline",
+        theme: "filled_black",
         size: "large",
         text: "signin_with",
         shape: "rectangular",
@@ -203,6 +204,7 @@ export default function Login() {
           id="signInDiv"
           data-text="signin_with"
           aria-label="Login with Google"
+          className="font-roboto"
         ></button>
       </div>
 
