@@ -54,7 +54,9 @@ export default function Home() {
   return (
     <>
       <DynamicTitle title="Home" />
-      {isLoading && <Spinner />}
+      {isLoading && (
+        <Spinner className="spinner" strokeColor="#FCD34D" strokeWidth="120" />
+      )}
       {isError && (
         <MessageDisplay
           title="Error:"

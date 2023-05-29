@@ -59,7 +59,9 @@ export default function Cart() {
   return (
     <>
       <DynamicTitle title="Cart" />
-      {isFetching && <Spinner />}
+      {isFetching && (
+        <Spinner className="spinner" strokeColor="#FCD34D" strokeWidth="120" />
+      )}
       {isError && (
         <MessageDisplay
           title="Error:"

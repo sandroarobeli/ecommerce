@@ -8,6 +8,7 @@ export const apiSlice = createApi({
   }),
   tagTypes: ["Product", "Order", "Summary", "User", "Review"],
   endpoints: (builder) => ({
+    // Products
     getAllProducts: builder.query({
       query: (page) => `/products/pagination/${page}`,
       providesTags: ["Product"],
@@ -16,7 +17,31 @@ export const apiSlice = createApi({
       query: (slug) => `/products/product/${slug}`,
       providesTags: ["Product"],
     }),
+    // Users
+    credentialLogin: builder.mutation({
+      query: ({ email, password }) => ({
+        url: "/users/credential-login",
+        method: "POST",
+        // body: initialUserCredentials, same as object below..
+        body: {
+          email: email,
+          password: password,
+        },
+      }),
+    }),
+    googleLogin: builder.mutation({
+      query: (initialGoogleCredential) => ({
+        url: "/users/google-login",
+        method: "POST",
+        body: initialGoogleCredential,
+      }),
+    }),
   }),
 });
 
-export const { useGetAllProductsQuery, useGetProductBySlugQuery } = apiSlice;
+export const {
+  useGetAllProductsQuery,
+  useGetProductBySlugQuery,
+  useCredentialLoginMutation,
+  useGoogleLoginMutation,
+} = apiSlice;

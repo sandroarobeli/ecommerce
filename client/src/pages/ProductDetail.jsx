@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Rating } from "react-simple-star-rating";
 
 import { useGetProductBySlugQuery } from "../redux/apiSlice";
@@ -23,7 +23,9 @@ export default function ProductDetail() {
   return (
     <div>
       <DynamicTitle title={product?.name || "Product Page"} />
-      {isLoading && <Spinner />}
+      {isLoading && (
+        <Spinner className="spinner" strokeColor="#FCD34D" strokeWidth="120" />
+      )}
       {isError && (
         <MessageDisplay
           title="Error:"

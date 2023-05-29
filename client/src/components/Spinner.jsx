@@ -1,13 +1,13 @@
 import { RotatingLines } from "react-loader-spinner";
 
-export default function Spinner() {
+export default function Spinner({ className, strokeColor, strokeWidth }) {
   return (
-    <div className="w-[120px] m-auto">
+    <div className={className}>
       <RotatingLines
-        strokeColor="#2563EB"
+        strokeColor={strokeColor}
         strokeWidth="5"
         animationDuration="1"
-        width="120"
+        width={strokeWidth}
         visible={true}
       />
     </div>

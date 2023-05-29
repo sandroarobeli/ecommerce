@@ -13,11 +13,9 @@ async function getAllProducts(req, res, next) {
       },
     });
     res.set("Cache-Control", "no-cache");
-    // res.set("Cache-Control", "public, max-age=360000"); // testing which has better performance
     res.status(200).json(products);
   } catch (error) {
     return next(new Error("Failed to retrieve products"));
-    // return next(new Error(error.message)); // For testing
   }
 }
 
