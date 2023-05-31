@@ -15,8 +15,25 @@ export const apiSlice = createApi({
     }),
     getProductBySlug: builder.query({
       query: (slug) => `/products/product/${slug}`,
-      providesTags: ["Product"],
+      providesTags: ["Product", "Review"],
     }),
+    postReview: builder.mutation({
+      query: ({ id, token, content, rating }) => ({
+        url: `/products/reviews/${id}`,
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: {
+          content: content,
+          rating: rating,
+        },
+      }),
+      invalidatesTags: ["Product", "Review"],
+    }),
+
     // Users
     credentialLogin: builder.mutation({
       query: ({ email, password }) => ({
@@ -42,6 +59,7 @@ export const apiSlice = createApi({
 export const {
   useGetAllProductsQuery,
   useGetProductBySlugQuery,
+  usePostReviewMutation,
   useCredentialLoginMutation,
   useGoogleLoginMutation,
 } = apiSlice;
