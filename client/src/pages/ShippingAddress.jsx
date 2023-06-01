@@ -54,7 +54,7 @@ export default function ShippingAddress() {
     <CheckoutWizard activeStep={1}>
       <DynamicTitle title="Shipping address" />
       <form
-        className="mx-auto max-w-screen-md"
+        className="mx-auto max-w-screen-md font-roboto"
         onSubmit={handleSubmit(submitHandler)}
       >
         <h1 className="mb-4 text-xl">Shipping Address</h1>

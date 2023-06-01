@@ -53,6 +53,20 @@ export const apiSlice = createApi({
         body: initialGoogleCredential,
       }),
     }),
+    // Orders
+    placeOrder: builder.mutation({
+      query: (initialOrder) => ({
+        url: "/orders/place-order",
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + initialOrder.token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: initialOrder,
+      }),
+      invalidatesTags: ["Summary"],
+    }),
   }),
 });
 
@@ -62,4 +76,5 @@ export const {
   usePostReviewMutation,
   useCredentialLoginMutation,
   useGoogleLoginMutation,
+  usePlaceOrderMutation,
 } = apiSlice;

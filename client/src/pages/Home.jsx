@@ -9,14 +9,17 @@ import Spinner from "../components/Spinner";
 import Carousel from "../components/Carousel";
 import ProductItem from "../components/ProductItem";
 import Pagination from "../components/Pagination";
+// REMEMBER: ID QUERY ==> USE MESSAGE DISPLAY, IF MUTATION ==> USE MODAL
+// IF BOTH ==> USE BOTH (AS A GENERAL RULE)
+
 // NOTE: FOLLOW BASSIR'S LESSONS FOR PAGE SEQUENCE TO STAY CONSISTENT
 // 1. ALWAYS: !!!TEST LIGHTHOUSE ON EVERY PAGE COMPLETION!!!
 // 2. !!!VERY IMPORTANT: MAKE SURE THE QUANTITIES OF PRODUCTS GET UPDATED ONCE
-// A USER PLACES AN ORDER. THIS WAY, QUANTITIES ARE ALWAYS UP TO DATE!!! (AT PLACE ORDER MODULE)
+// A USER PLACES AN ORDER. THIS WAY, QUANTITIES ARE ALWAYS UP TO DATE!!! (AT PAY-ORDER MODULE)
 
 // 3. SEARCH CONTROLLER TO SEARCH THROUGH ALL PRODUCTS, NOT JUST PER PAGE.
 
-// NEXT: DECIDE ON NEXT MOVE (PLACE ORDER IS NEXT). LIGHTHOUSE. CLEAN UP THE CODE!!!
+// NEXT: DECIDE ON NEXT MOVE (...IS NEXT). LIGHTHOUSE. CLEAN UP THE CODE!!!
 // ******************************************************************************
 // ******************************************************************************
 // SERVER: CHECK OUT APPLICATION AUTOMATICALLY RESTARTS.

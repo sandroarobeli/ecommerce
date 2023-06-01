@@ -47,10 +47,10 @@ export default function PaymentMethod() {
     <CheckoutWizard activeStep={2}>
       <DynamicTitle title="Payment method" />
       <form
-        className="mx-auto max-w-screen-md"
+        className="mx-auto max-w-screen-md font-roboto"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="mb-4 text-xl font-roboto">Payment Method</h1>
+        <h1 className="mb-4 text-xl">Payment Method</h1>
         {["PayPal / Credit Card", "Cash on delivery"].map((payment) => (
           <div key={payment} className="mb-4 flex items-center">
             <label htmlFor={payment} className="p-2 font-roboto">

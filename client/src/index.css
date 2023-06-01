@@ -64,7 +64,7 @@ textarea {
 
 /* Modal and CSSTransition classes */
 .modal {
-  @apply fixed top-0 right-0 bottom-0 left-0 bg-black/50 flex justify-center items-center opacity-0 transition-all ease-in-out duration-300 pointer-events-none;
+  @apply fixed top-0 right-0 bottom-0 left-0 bg-black/50 font-roboto flex justify-center items-center opacity-0 transition-all ease-in-out duration-300 pointer-events-none;
 }
 
 .modal.enter-done {
