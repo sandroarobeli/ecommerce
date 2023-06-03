@@ -102,68 +102,68 @@ const userSlice = createSlice({
         (state, action) => {
           state.error = action.payload.data.message;
         }
-      );
-    // .addMatcher(
-    //   apiSlice.endpoints.credentialRegister.matchFulfilled,
-    //   (state, action) => {
-    //     state.user.id = action.payload.id;
-    //     state.user.name = action.payload.name;
-    //     state.user.email = action.payload.email;
-    //     state.user.image = action.payload.image;
-    //     state.user.isAdmin = action.payload.isAdmin;
-    //     state.user.token = action.payload.token;
-    //     state.user.tokenExpiration = action.payload.expiration;
-    //     localStorage.setItem(
-    //       "user",
-    //       JSON.stringify({
-    //         id: action.payload.id,
-    //         name: action.payload.name,
-    //         email: action.payload.email,
-    //         image: action.payload.image,
-    //         isAdmin: action.payload.isAdmin,
-    //         token: action.payload.token,
-    //         tokenExpiration: state.user.tokenExpiration.toString(),
-    //       })
-    //     );
-    //   }
-    // )
-    // .addMatcher(
-    //   apiSlice.endpoints.credentialRegister.matchRejected,
-    //   (state, action) => {
-    //     state.error = action.payload.data.message;
-    //   }
-    // )
-    // .addMatcher(
-    //   apiSlice.endpoints.googleRegister.matchFulfilled,
-    //   (state, action) => {
-    //     state.user.id = action.payload.id;
-    //     state.user.name = action.payload.name;
-    //     state.user.email = action.payload.email;
-    //     state.user.image = action.payload.image;
-    //     state.user.isAdmin = action.payload.isAdmin;
-    //     state.user.token = action.payload.token;
-    //     state.user.tokenExpiration = action.payload.expiration;
+      )
+      .addMatcher(
+        apiSlice.endpoints.credentialRegister.matchFulfilled,
+        (state, action) => {
+          state.user.id = action.payload.id;
+          state.user.name = action.payload.name;
+          state.user.email = action.payload.email;
+          state.user.image = action.payload.image;
+          state.user.isAdmin = action.payload.isAdmin;
+          state.user.token = action.payload.token;
+          state.user.tokenExpiration = action.payload.expiration;
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              id: action.payload.id,
+              name: action.payload.name,
+              email: action.payload.email,
+              image: action.payload.image,
+              isAdmin: action.payload.isAdmin,
+              token: action.payload.token,
+              tokenExpiration: state.user.tokenExpiration.toString(),
+            })
+          );
+        }
+      )
+      .addMatcher(
+        apiSlice.endpoints.credentialRegister.matchRejected,
+        (state, action) => {
+          state.error = action.payload.data.message;
+        }
+      )
+      .addMatcher(
+        apiSlice.endpoints.googleRegister.matchFulfilled,
+        (state, action) => {
+          state.user.id = action.payload.id;
+          state.user.name = action.payload.name;
+          state.user.email = action.payload.email;
+          state.user.image = action.payload.image;
+          state.user.isAdmin = action.payload.isAdmin;
+          state.user.token = action.payload.token;
+          state.user.tokenExpiration = action.payload.expiration;
 
-    //     localStorage.setItem(
-    //       "user",
-    //       JSON.stringify({
-    //         id: action.payload.id,
-    //         name: action.payload.name,
-    //         email: action.payload.email,
-    //         image: action.payload.image,
-    //         isAdmin: action.payload.isAdmin,
-    //         token: action.payload.token,
-    //         tokenExpiration: state.user.tokenExpiration.toString(),
-    //       })
-    //     );
-    //   }
-    // )
-    // .addMatcher(
-    //   apiSlice.endpoints.googleRegister.matchRejected,
-    //   (state, action) => {
-    //     state.error = action.payload.data.message;
-    //   }
-    // )
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              id: action.payload.id,
+              name: action.payload.name,
+              email: action.payload.email,
+              image: action.payload.image,
+              isAdmin: action.payload.isAdmin,
+              token: action.payload.token,
+              tokenExpiration: state.user.tokenExpiration.toString(),
+            })
+          );
+        }
+      )
+      .addMatcher(
+        apiSlice.endpoints.googleRegister.matchRejected,
+        (state, action) => {
+          state.error = action.payload.data.message;
+        }
+      );
     // .addMatcher(
     //   apiSlice.endpoints.passwordResetEmail.matchRejected,
     //   (state, action) => {
