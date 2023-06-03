@@ -17,7 +17,7 @@ import Pagination from "../components/Pagination";
 
 // 3. SEARCH CONTROLLER TO SEARCH THROUGH ALL PRODUCTS, NOT JUST PER PAGE.
 
-// NEXT: (REGISTER...IS NEXT). LIGHTHOUSE. CLEAN UP THE CODE!!!
+// NEXT: (ORDER HISTORY...IS NEXT). LIGHTHOUSE. CLEAN UP THE CODE!!!
 // ******************************************************************************
 // ******************************************************************************
 // SERVER: CHECK OUT APPLICATION AUTOMATICALLY RESTARTS.

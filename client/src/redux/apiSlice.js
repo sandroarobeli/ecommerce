@@ -65,6 +65,26 @@ export const apiSlice = createApi({
         body: initialGoogleCredential,
       }),
     }),
+    credentialRegister: builder.mutation({
+      query: ({ name, email, password }) => ({
+        url: "/users/credential-register",
+        method: "POST",
+        body: {
+          name: name,
+          email: email,
+          password: password,
+        },
+      }),
+      invalidatesTags: ["Summary", "User"],
+    }),
+    googleRegister: builder.mutation({
+      query: (initialGoogleCredential) => ({
+        url: "/users/google-register",
+        method: "POST",
+        body: initialGoogleCredential,
+      }),
+      invalidatesTags: ["Summary", "User"],
+    }),
     // Orders
     getOrderById: builder.query({
       query: ({ id, token }) => ({
@@ -126,6 +146,8 @@ export const {
   usePostReviewMutation,
   useCredentialLoginMutation,
   useGoogleLoginMutation,
+  useCredentialRegisterMutation,
+  useGoogleRegisterMutation,
   useGetOrderByIdQuery,
   usePlaceOrderMutation,
   useUpdatePaidStatusMutation,
