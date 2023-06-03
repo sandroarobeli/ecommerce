@@ -17,6 +17,18 @@ export const apiSlice = createApi({
       query: (slug) => `/products/product/${slug}`,
       providesTags: ["Product", "Review"],
     }),
+    updateProductInventory: builder.mutation({
+      query: (purchasedItems) => ({
+        url: "/products/update-inventory",
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: purchasedItems,
+      }),
+      invalidatesTags: ["Product"],
+    }),
     postReview: builder.mutation({
       query: ({ id, token, content, rating }) => ({
         url: `/products/reviews/${id}`,
@@ -54,6 +66,16 @@ export const apiSlice = createApi({
       }),
     }),
     // Orders
+    getOrderById: builder.query({
+      query: ({ id, token }) => ({
+        url: `/orders/order/${id}`,
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }),
+      providesTags: ["Order"],
+    }),
     placeOrder: builder.mutation({
       query: (initialOrder) => ({
         url: "/orders/place-order",
@@ -67,14 +89,45 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Summary"],
     }),
+    updatePaidStatus: builder.mutation({
+      query: ({ id, token, orderDetails }) => ({
+        url: `/orders/pay/${id}`,
+        method: "PATCH",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: orderDetails,
+      }),
+      invalidatesTags: ["Order", "Summary"],
+    }),
+    // Admin
+    updateDeliveredStatus: builder.mutation({
+      query: ({ id, token }) => ({
+        url: `/admin/deliver/${id}`,
+        method: "PATCH",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: {},
+      }),
+      invalidatesTags: ["Order", "Summary"],
+    }),
   }),
 });
 
 export const {
   useGetAllProductsQuery,
   useGetProductBySlugQuery,
+  useUpdateProductInventoryMutation,
   usePostReviewMutation,
   useCredentialLoginMutation,
   useGoogleLoginMutation,
+  useGetOrderByIdQuery,
   usePlaceOrderMutation,
+  useUpdatePaidStatusMutation,
+  useUpdateDeliveredStatusMutation,
 } = apiSlice;

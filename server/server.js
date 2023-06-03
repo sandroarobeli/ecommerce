@@ -4,7 +4,7 @@ const cors = require("cors");
 const userRoutes = require("./routes/users");
 const productRoutes = require("./routes/products");
 const orderRoutes = require("./routes/orders");
-// const adminRoutes = require("./routes/admin");
+const adminRoutes = require("./routes/admin");
 
 // Create the server app and designate the port
 const app = express();
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
-// app.use("/api/admin", adminRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Handling errors for unsupported routes
 app.use((req, res, next) => {

@@ -7,7 +7,6 @@ import {
   selectShippingAddress,
   selectPaymentMethod,
   clearCartError,
-  clearCartItems,
 } from "../redux/cartSlice";
 import { selectToken } from "../redux/userSlice";
 import { usePlaceOrderMutation } from "../redux/apiSlice";
@@ -67,10 +66,7 @@ export default function PlaceOrder() {
           shippingTotal,
           grandTotal,
         }).unwrap();
-        // DO NOT CLEAR ITEMS! WE NEED TO ITERATE THEM TO DEDUCT QUANTITIES FROM DB
-        // WHEN A USER COMPLETES PAYMENT IN PAY-FOR-ORDER
-        // await dispatch(clearCartItems());
-        // Send another email with the receipt and order confirmation info + possible shipping info
+
         navigate(`/order/${order.id}`);
       } catch (error) {
         setErrorMessage(error.data.message); // Local Error state get populated by Redux error
@@ -103,15 +99,25 @@ export default function PlaceOrder() {
                 {shippingAddress.city},{shippingAddress.state},{" "}
                 {shippingAddress.zip}
               </div>
-              <div>
-                <Link to="/shipping-address">Edit</Link>
+              <div className="mt-4">
+                <Link
+                  to="/shipping-address"
+                  className="text-blue-800 hover:text-blue-900"
+                >
+                  Edit
+                </Link>
               </div>
             </div>
             <div className="card p-5 mb-4">
               <h2 className="mb-2 text-lg font-semibold">Payment Method</h2>
               <div>{paymentMethod}</div>
-              <div>
-                <Link to="/payment-method">Edit</Link>
+              <div className="mt-4">
+                <Link
+                  to="/payment-method"
+                  className="text-blue-800 hover:text-blue-900"
+                >
+                  Edit
+                </Link>
               </div>
             </div>
             <div className="card p-5 mb-4 overflow-x-auto">
