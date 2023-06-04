@@ -70,6 +70,7 @@ model Order {
 
 type OrderItem {
   name     String 
+  slug     String 
   quantity Int
   image    String
   price    Float

@@ -8,6 +8,7 @@ async function placeOrder(req, res, next) {
       data: {
         orderItems: req.body.orderItems.map((item) => ({
           name: item.name,
+          slug: item.slug,
           quantity: item.quantity,
           image: item.image,
           price: item.price,

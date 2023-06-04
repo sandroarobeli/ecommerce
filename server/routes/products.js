@@ -17,7 +17,7 @@ router.get("/pagination/:page", getAllProducts);
 router.get("/product/:slug", getProductBySlug);
 
 // Update available product inventory quantities
-router.patch("/update-inventory", updateProductInventory);
+// router.patch("/update-inventory", updateProductInventory);
 
 // Adds review and rating to a specific product. Privileged, requires authorization
 router.post(
