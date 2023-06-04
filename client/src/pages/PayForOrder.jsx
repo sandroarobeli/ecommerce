@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { selectToken, selectUserAdmin } from "../redux/userSlice";
-import { selectAllItems, clearCartItems } from "../redux/cartSlice";
 import {
   useGetOrderByIdQuery,
   useUpdatePaidStatusMutation,
   useUpdateDeliveredStatusMutation,
-  useUpdateProductInventoryMutation,
 } from "../redux/apiSlice";
 import PaypalButton from "../components/PaypalButton";
 import Alert from "../components/Alert";
@@ -19,8 +17,6 @@ import MessageDisplay from "../components/MessageDisplay";
 
 export default function PayForOrder() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const allItems = useSelector(selectAllItems);
   const token = useSelector(selectToken);
   const isAdmin = useSelector(selectUserAdmin);
   const { id } = useParams();
@@ -40,7 +36,6 @@ export default function PayForOrder() {
   const [updatePaidStatus] = useUpdatePaidStatusMutation();
   const [updateDeliveredStatus, { isLoading: isDeliveredLoading }] =
     useUpdateDeliveredStatusMutation();
-  const [updateProductInventory] = useUpdateProductInventoryMutation();
 
   // Auto scrolls to the top on page change
   useEffect(() => {
@@ -65,10 +60,6 @@ export default function PayForOrder() {
     return actions.order.capture().then(async function (orderDetails) {
       try {
         await updatePaidStatus({ id: order.id, token, orderDetails }).unwrap();
-        // Since the payment has been made, Adjust current quantities of products in DB
-        await updateProductInventory({ purchasedItems: allItems });
-        // Then clear the shopping cart
-        await dispatch(clearCartItems());
         navigate("/order-confirmation");
       } catch (error) {
         setErrorMessage(error.data.message);

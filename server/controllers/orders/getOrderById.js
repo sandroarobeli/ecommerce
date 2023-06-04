@@ -25,8 +25,6 @@ async function getOrderById(req, res, next) {
     // If logged in user tries to look up someone else's order..
     // e.g. userId from userData from token does not match
     // order creator's id. Unless that logged in user is Admin
-    // TEST THIS AGAIN. CREATE ORDER UNDER KATIE, TEST ALEX'S ORDERS FROM DB
-    // THEN TEST KATIES ORDERS BY ALEX
     if (existingOrder.ownerId !== userId && !currentUser.isAdmin) {
       return next(new Error("You are not authorized to view this page"));
     }

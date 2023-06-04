@@ -17,18 +17,18 @@ export const apiSlice = createApi({
       query: (slug) => `/products/product/${slug}`,
       providesTags: ["Product", "Review"],
     }),
-    updateProductInventory: builder.mutation({
-      query: (purchasedItems) => ({
-        url: "/products/update-inventory",
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode: "cors",
-        body: purchasedItems,
-      }),
-      invalidatesTags: ["Product"],
-    }),
+    // updateProductInventory: builder.mutation({
+    //   query: (purchasedItems) => ({
+    //     url: "/products/update-inventory",
+    //     method: "PATCH",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     mode: "cors",
+    //     body: purchasedItems,
+    //   }),
+    //   invalidatesTags: ["Product"],
+    // }),
     postReview: builder.mutation({
       query: ({ id, token, content, rating }) => ({
         url: `/products/reviews/${id}`,
@@ -96,6 +96,16 @@ export const apiSlice = createApi({
       }),
       providesTags: ["Order"],
     }),
+    getOrderHistory: builder.query({
+      query: ({ token }) => ({
+        url: "/orders/history",
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }),
+      providesTags: ["Summary"],
+    }),
     placeOrder: builder.mutation({
       query: (initialOrder) => ({
         url: "/orders/place-order",
@@ -149,6 +159,7 @@ export const {
   useCredentialRegisterMutation,
   useGoogleRegisterMutation,
   useGetOrderByIdQuery,
+  useGetOrderHistoryQuery,
   usePlaceOrderMutation,
   useUpdatePaidStatusMutation,
   useUpdateDeliveredStatusMutation,

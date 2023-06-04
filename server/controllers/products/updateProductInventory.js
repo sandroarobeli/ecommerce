@@ -1,5 +1,6 @@
 const prisma = require("../../db");
 
+// SAVE IT FOR NOW, DELETE AT THE END IF NOT NEEDED
 async function updateProductInventory(req, res, next) {
   const { purchasedItems } = req.body;
 

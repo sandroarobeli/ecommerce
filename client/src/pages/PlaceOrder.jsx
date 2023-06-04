@@ -7,6 +7,7 @@ import {
   selectShippingAddress,
   selectPaymentMethod,
   clearCartError,
+  clearCartItems,
 } from "../redux/cartSlice";
 import { selectToken } from "../redux/userSlice";
 import { usePlaceOrderMutation } from "../redux/apiSlice";
@@ -66,7 +67,8 @@ export default function PlaceOrder() {
           shippingTotal,
           grandTotal,
         }).unwrap();
-
+        // Then clear the shopping cart
+        await dispatch(clearCartItems());
         navigate(`/order/${order.id}`);
       } catch (error) {
         setErrorMessage(error.data.message); // Local Error state get populated by Redux error
