@@ -18,7 +18,7 @@ import Pagination from "../components/Pagination";
 // WHEN ADDING A NEW ORDER, QUANTITY SELECTION MUST BE AS A SEPARATE FIELD
 // 3. SEARCH CONTROLLER TO SEARCH THROUGH ALL PRODUCTS, NOT JUST PER PAGE.
 
-// NEXT: (USER PROFILE...IS NEXT). LIGHTHOUSE. CLEAN UP THE CODE!!!
+// NEXT: (ADMIN DASHBOARD...IS NEXT). LIGHTHOUSE. CLEAN UP THE CODE!!!
 // ******************************************************************************
 // ******************************************************************************
 // SERVER: CHECK OUT APPLICATION AUTOMATICALLY RESTARTS.

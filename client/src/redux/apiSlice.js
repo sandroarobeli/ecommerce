@@ -85,6 +85,23 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Summary", "User"],
     }),
+    updateProfile: builder.mutation({
+      query: ({ name, email, password, token }) => ({
+        url: "/users/update-profile",
+        method: "PATCH",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: {
+          name: name,
+          email: email,
+          password: password,
+        },
+      }),
+      invalidatesTags: ["User"],
+    }),
     // Orders
     getOrderById: builder.query({
       query: ({ id, token }) => ({
@@ -158,6 +175,7 @@ export const {
   useGoogleLoginMutation,
   useCredentialRegisterMutation,
   useGoogleRegisterMutation,
+  useUpdateProfileMutation,
   useGetOrderByIdQuery,
   useGetOrderHistoryQuery,
   usePlaceOrderMutation,

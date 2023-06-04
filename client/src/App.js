@@ -23,6 +23,7 @@ const PaymentMethod = lazy(() => import("./pages/PaymentMethod"));
 const PlaceOrder = lazy(() => import("./pages/PlaceOrder"));
 const PayForOrder = lazy(() => import("./pages/PayForOrder"));
 const OrderHistory = lazy(() => import("./pages/OrderHistory"));
+const UserProfile = lazy(() => import("./pages/UserProfile"));
 const OrderConfirmation = lazy(() => import("./pages/OrderConfirmation"));
 const Inactivity = lazy(() => import("./pages/Inactivity"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
@@ -106,6 +107,9 @@ function App() {
             )}
             {token && (
               <Route path="order-history" exact element={<OrderHistory />} />
+            )}
+            {token && (
+              <Route path="user-profile" exact element={<UserProfile />} />
             )}
             <Route
               path="order-confirmation"
