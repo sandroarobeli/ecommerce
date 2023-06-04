@@ -1,10 +1,12 @@
 const express = require("express");
 const { check } = require("express-validator");
 
+const checkAuthorization = require("../utils/checkAuthorization");
 const credentialLogin = require("../controllers/users/credentialLogin");
 const googleLogin = require("../controllers/users/googleLogin");
 const credentialRegister = require("../controllers/users/credentialRegister");
 const googleRegister = require("../controllers/users/googleRegister");
+const updateProfile = require("../controllers/users/updateProfile");
 
 // Initializing the router object
 const router = express.Router();
@@ -35,5 +37,17 @@ router.post(
 
 // Register a User with Google
 router.post("/google-register", googleRegister);
+
+// Update User profile. Privileged, requires authorization
+router.patch(
+  "/update-profile",
+  [
+    check("name").not().isEmpty().trim().escape(),
+    check("email").not().isEmpty().isEmail().trim().escape(),
+    check("password").not().isEmpty().trim().escape(),
+  ],
+  checkAuthorization,
+  updateProfile
+);
 
 module.exports = router;

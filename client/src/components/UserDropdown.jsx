@@ -66,18 +66,30 @@ export default function UserDropdown() {
             } absolute right-2 top-16 w-60 border rounded z-10 shadow-lg text-center text-black bg-white `}
           >
             <li>
-              <Link to="/profile" className="dropdown-link">
+              <Link
+                to="/user-profile"
+                className="dropdown-link"
+                onClick={() => setShowMenu(false)}
+              >
                 Profile
               </Link>
             </li>
             <li>
-              <Link to="/order-history" className="dropdown-link">
+              <Link
+                to="/order-history"
+                className="dropdown-link"
+                onClick={() => setShowMenu(false)}
+              >
                 Order History
               </Link>
             </li>
             {isAdmin && (
               <li>
-                <Link to="/admin/dashboard" className="dropdown-link">
+                <Link
+                  to="/admin/dashboard"
+                  className="dropdown-link"
+                  onClick={() => setShowMenu(false)}
+                >
                   Admin Dashboard
                 </Link>
               </li>

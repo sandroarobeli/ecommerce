@@ -12,7 +12,7 @@ async function getOrderHistory(req, res, next) {
         createdAt: "desc",
       },
     });
-    res.set("Cache-Control", "no-cache");
+    res.set("Cache-Control", "private");
 
     res.status(200).json(orders);
   } catch (error) {
