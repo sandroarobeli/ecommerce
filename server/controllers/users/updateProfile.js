@@ -31,6 +31,16 @@ async function updateProfile(req, res, next) {
           password: bcrypt.hashSync(password),
         },
       });
+
+      // Updating user and thus userName automatically updates authorName in existing reviews
+      await prisma.review.updateMany({
+        where: {
+          authorId: updatedUser.id,
+        },
+        data: {
+          authorName: updatedUser.name,
+        },
+      });
       res.set("Cache-Control", "private");
 
       res.status(200).json(updatedUser);

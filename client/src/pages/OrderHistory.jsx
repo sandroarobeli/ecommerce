@@ -65,7 +65,7 @@ export default function OrderHistory() {
                       {order.isPaid
                         ? new Date(order.paidAt)
                             .toLocaleString()
-                            .substring(0, 11)
+                            .substring(0, 10)
                             .replace(",", "")
                         : "not paid"}
                     </td>
@@ -73,7 +73,7 @@ export default function OrderHistory() {
                       {order.isDelivered
                         ? new Date(order.deliveredAt)
                             .toLocaleString()
-                            .substring(0, 11)
+                            .substring(0, 10)
                             .replace(",", "")
                         : "not delivered"}
                     </td>

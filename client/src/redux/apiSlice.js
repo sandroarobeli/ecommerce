@@ -45,7 +45,6 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Product", "Review"],
     }),
-
     // Users
     credentialLogin: builder.mutation({
       query: ({ email, password }) => ({
@@ -100,7 +99,22 @@ export const apiSlice = createApi({
           password: password,
         },
       }),
-      invalidatesTags: ["User"],
+      invalidatesTags: ["User", "Product", "Review"],
+    }),
+    deleteAccount: builder.mutation({
+      query: ({ id, email, token }) => ({
+        url: `/users/delete-account/${id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: {
+          email: email,
+        },
+      }),
+      invalidatesTags: ["Summary", "User", "Product", "Review"],
     }),
     // Orders
     getOrderById: builder.query({
@@ -163,6 +177,18 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Order", "Summary"],
     }),
+    getAdminSummary: builder.query({
+      query: ({ token }) => ({
+        url: "/admin/summary",
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+      }),
+      providesTags: ["Summary"],
+    }),
   }),
 });
 
@@ -176,9 +202,11 @@ export const {
   useCredentialRegisterMutation,
   useGoogleRegisterMutation,
   useUpdateProfileMutation,
+  useDeleteAccountMutation,
   useGetOrderByIdQuery,
   useGetOrderHistoryQuery,
   usePlaceOrderMutation,
   useUpdatePaidStatusMutation,
   useUpdateDeliveredStatusMutation,
+  useGetAdminSummaryQuery,
 } = apiSlice;

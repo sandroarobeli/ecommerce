@@ -9,6 +9,7 @@ import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Spinner from "./components/Spinner";
 import {
+  selectUserAdmin,
   selectToken,
   selectTokenExpiration,
   logout,
@@ -24,6 +25,8 @@ const PlaceOrder = lazy(() => import("./pages/PlaceOrder"));
 const PayForOrder = lazy(() => import("./pages/PayForOrder"));
 const OrderHistory = lazy(() => import("./pages/OrderHistory"));
 const UserProfile = lazy(() => import("./pages/UserProfile"));
+const DeleteAccount = lazy(() => import("./pages/DeleteAccount"));
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 const OrderConfirmation = lazy(() => import("./pages/OrderConfirmation"));
 const Inactivity = lazy(() => import("./pages/Inactivity"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
@@ -32,7 +35,7 @@ function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
-  // const isAdmin = useSelector(selectUserAdmin);
+  const isAdmin = useSelector(selectUserAdmin);
   const tokenExpiration = useSelector(selectTokenExpiration);
 
   // function defining what to do due to inactivity
@@ -110,6 +113,16 @@ function App() {
             )}
             {token && (
               <Route path="user-profile" exact element={<UserProfile />} />
+            )}
+            {token && (
+              <Route path="delete-account" exact element={<DeleteAccount />} />
+            )}
+            {token && isAdmin && (
+              <Route
+                path="admin/dashboard"
+                exact
+                element={<AdminDashboard />}
+              />
             )}
             <Route
               path="order-confirmation"
