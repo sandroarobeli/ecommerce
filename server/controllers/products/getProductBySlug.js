@@ -15,6 +15,7 @@ async function getProductBySlug(req, res, next) {
     if (!product) {
       return next(new Error("This product could not be found"));
     }
+
     res.set("Cache-Control", "no-cache");
     res.status(200).json(product);
   } catch (error) {

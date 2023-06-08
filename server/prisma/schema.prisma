@@ -9,7 +9,7 @@ datasource db {
 
 model User {
   id               String @id @default(auto()) @map("_id") @db.ObjectId
-  name             String
+  name             String @default("anonymous")
   email            String @unique
   password         String
   isAdmin          Boolean @default(false)
@@ -38,13 +38,13 @@ model Product {
 
 model Review {
   id              String @id @default(auto()) @map("_id") @db.ObjectId
-  product Product @relation(fields: [productId], references: [id])
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   productId       String  @db.ObjectId
-  author User     @relation(fields: [authorId], references: [id])
-  authorId        String  @db.ObjectId 
-  authorName      String 
+  author User     @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  authorId        String  @db.ObjectId  
+  authorName      String  
   reviewRating    Float @default(0)  
-  content         String?
+  content         String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
@@ -63,8 +63,8 @@ model Order {
   paidAt                          DateTime? 
   deliveredAt                     DateTime? 
   paymentResult PaymentResult
-  owner User                      @relation(fields: [ownerId], references: [id])
-  ownerId                         String  @db.ObjectId 
+  owner User?                     @relation(fields: [ownerId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  ownerId                         String?  @db.ObjectId
   createdAt                       DateTime @default(now())
 }
 

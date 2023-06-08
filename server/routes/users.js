@@ -7,6 +7,7 @@ const googleLogin = require("../controllers/users/googleLogin");
 const credentialRegister = require("../controllers/users/credentialRegister");
 const googleRegister = require("../controllers/users/googleRegister");
 const updateProfile = require("../controllers/users/updateProfile");
+const deleteAccount = require("../controllers/users/deleteAccount");
 
 // Initializing the router object
 const router = express.Router();
@@ -48,6 +49,14 @@ router.patch(
   ],
   checkAuthorization,
   updateProfile
+);
+
+// Delete User account
+router.delete(
+  "/delete-account/:userId",
+  [check("email").not().isEmpty().isEmail().trim().escape()],
+  checkAuthorization,
+  deleteAccount
 );
 
 module.exports = router;

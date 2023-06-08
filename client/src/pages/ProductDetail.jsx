@@ -78,7 +78,7 @@ export default function ProductDetail() {
       {isSuccess && (
         <div className="font-roboto">
           <div className="py-2">
-            <Link to="/" className="text-xl font-semibold">
+            <Link to="/" className="text-xl text-blue-800 hover:text-blue-900">
               Back to products
             </Link>
           </div>
@@ -131,7 +131,7 @@ export default function ProductDetail() {
                 </li>
                 {/* List of reviews, if any */}
                 {product.numberOfReviews === 0 ? (
-                  <li className="mb-2 text-lg">No reviews</li>
+                  <li className="mb-2 text-lg font-semibold">No reviews</li>
                 ) : (
                   product.reviews.map((review) => (
                     <li
@@ -145,7 +145,7 @@ export default function ProductDetail() {
                         <h4>
                           {new Date(review.createdAt)
                             .toLocaleString()
-                            .substring(0, 11)
+                            .substring(0, 10)
                             .replace(",", "")}
                         </h4>
                       </div>

@@ -46,6 +46,7 @@ async function postReview(req, res, next) {
             id: existingReview.id,
           },
           data: {
+            authorName: currentUser.name,
             content: content,
             reviewRating: rating,
           },
@@ -59,13 +60,14 @@ async function postReview(req, res, next) {
         const updatedRating =
           product.reviews.reduce((a, c) => a + c.reviewRating, 0) /
           product.reviews.length;
+
         // And we update properties of product based on existing Review
         await prisma.product.update({
           where: {
             id: productId,
           },
           data: {
-            // This number hasn't changed
+            // This number HASN'T changed
             numberOfReviews: product.reviews.length,
             // This one might have changed
             productRating: updatedRating,
@@ -104,7 +106,7 @@ async function postReview(req, res, next) {
             id: productId,
           },
           data: {
-            // This number did change
+            // This number HAS changed
             numberOfReviews: updatedReviews.length,
             // This number might have changed
             productRating: updatedRating,
