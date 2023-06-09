@@ -49,7 +49,7 @@ export default function Header() {
           <div className="hidden sm:flex sm:justify-center">
             <input
               type="text"
-              id="search"
+              id="user-search-products"
               onChange={(event) => setQuery(event.target.value)}
               className="rounded-tr-none rounded-br-none p-1 text-lg text-black focus:ring-0"
               placeholder="Search products.."

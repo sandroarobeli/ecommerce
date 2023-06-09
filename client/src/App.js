@@ -27,6 +27,7 @@ const OrderHistory = lazy(() => import("./pages/OrderHistory"));
 const UserProfile = lazy(() => import("./pages/UserProfile"));
 const DeleteAccount = lazy(() => import("./pages/DeleteAccount"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
+const AdminOrders = lazy(() => import("./pages/admin/AdminOrders"));
 const OrderConfirmation = lazy(() => import("./pages/OrderConfirmation"));
 const Inactivity = lazy(() => import("./pages/Inactivity"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
@@ -123,6 +124,9 @@ function App() {
                 exact
                 element={<AdminDashboard />}
               />
+            )}
+            {token && isAdmin && (
+              <Route path="admin/orders" exact element={<AdminOrders />} />
             )}
             <Route
               path="order-confirmation"

@@ -189,6 +189,18 @@ export const apiSlice = createApi({
       }),
       providesTags: ["Summary"],
     }),
+    getAdminOrders: builder.query({
+      query: ({ token }) => ({
+        url: "/admin/orders",
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+      }),
+      providesTags: ["Order"],
+    }),
   }),
 });
 
@@ -209,4 +221,5 @@ export const {
   useUpdatePaidStatusMutation,
   useUpdateDeliveredStatusMutation,
   useGetAdminSummaryQuery,
+  useGetAdminOrdersQuery,
 } = apiSlice;

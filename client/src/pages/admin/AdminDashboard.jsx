@@ -88,7 +88,7 @@ export default function AdminDashboard() {
         <h1 className="mb-4 text-xl">Admin Dashboard</h1>
         {isLoading && (
           <p className="text-lg animate-pulse text-blue-800">
-            Generating report..
+            Generating report...
           </p>
         )}
         {isError && (
@@ -96,7 +96,7 @@ export default function AdminDashboard() {
             title="Error:"
             message={
               error?.data?.message ||
-              "Summary cannot be displayed. Please try later"
+              "Summary cannot be displayed. Please try again later"
             }
             className="alert-error"
           />

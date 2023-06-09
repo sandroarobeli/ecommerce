@@ -66,7 +66,11 @@ async function credentialLogin(req, res, next) {
       expiration: new Date().getTime() + 1000 * 60 * 60 * 2,
     });
   } catch (error) {
-    return next(new Error(`Login failed: ${error.message}`));
+    return next(
+      new Error(
+        `Login failed. Please check your internet connection and try again`
+      )
+    );
   }
 }
 
