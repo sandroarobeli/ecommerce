@@ -201,6 +201,19 @@ export const apiSlice = createApi({
       }),
       providesTags: ["Order"],
     }),
+    deleteProduct: builder.mutation({
+      query: ({ id, token }) => ({
+        url: `/admin/product/${id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: {},
+      }),
+      invalidatesTags: ["Product"],
+    }),
   }),
 });
 
@@ -222,4 +235,5 @@ export const {
   useUpdateDeliveredStatusMutation,
   useGetAdminSummaryQuery,
   useGetAdminOrdersQuery,
+  useDeleteProductMutation,
 } = apiSlice;

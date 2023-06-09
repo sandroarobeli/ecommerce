@@ -1,5 +1,3 @@
-import SearchIcon from "./icons/SearchIcon";
-
 export default function AdminSearchBar({
   value,
   onChange,
@@ -13,15 +11,12 @@ export default function AdminSearchBar({
         <input
           className="focus:ring ring-indigo-300"
           type="text"
-          id="admin-search-orders"
+          id="admin-search"
           autoFocus
           placeholder={placeholder}
           value={value}
           onChange={onChange}
         />
-        <i className="-ml-7 opacity-50">
-          <SearchIcon />
-        </i>
       </div>
     </div>
   );

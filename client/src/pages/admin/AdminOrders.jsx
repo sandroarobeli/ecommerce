@@ -42,7 +42,7 @@ export default function AdminOrders() {
         <AdminSearchBar
           value={searchValue}
           onChange={handleSearchValueChange}
-          placeholder="Enter customer name.."
+          placeholder="Enter customer name..."
           label="Search orders"
         />
         {isLoading && (
