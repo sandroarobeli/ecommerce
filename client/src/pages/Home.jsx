@@ -23,7 +23,7 @@ import Pagination from "../components/Pagination";
 // 6. REPLACE PUBLIC/HOME-SCREEN WITH THE SCREEN SHOT OF CURRENT VERSION
 // WHEN I ADD UNSPLASH PROFESSIONAL PHOTOS
 
-// NEXT: (ADMIN PRODUCTS...IS NEXT). LIGHTHOUSE. CLEAN UP THE CODE!!!
+// NEXT: (EDIT PRODUCT...IS NEXT). LIGHTHOUSE. CLEAN UP THE CODE!!!
 // ******************************************************************************
 // ******************************************************************************
 // SERVER: CHECK OUT APPLICATION AUTOMATICALLY RESTARTS.
