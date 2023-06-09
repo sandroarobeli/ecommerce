@@ -50,7 +50,7 @@ async function getSummary(req, res, next) {
       ordersTotal: orders.reduce((a, c) => a + c.itemsTotal, 0),
       chartingData: orders,
     };
-    res.set("Cache-Control", "no-cache");
+    res.set("Cache-Control", "private");
 
     res.status(200).json(summary);
   } catch (error) {

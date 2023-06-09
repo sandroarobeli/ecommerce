@@ -49,7 +49,11 @@ async function credentialRegister(req, res, next) {
       expiration: new Date().getTime() + 1000 * 60 * 60 * 2,
     });
   } catch (error) {
-    return next(new Error(`Registration failed: ${error.message}`));
+    return next(
+      new Error(
+        "Registration failed. Please check your internet connection and try again"
+      )
+    );
   }
 }
 

@@ -63,7 +63,7 @@ export default function UserDropdown() {
           <ul
             className={`${
               showMenu ? "scale-100 transition-all duration-300" : "scale-0"
-            } absolute right-2 top-16 w-60 border rounded z-10 shadow-lg text-center text-black bg-white `}
+            } absolute right-2 top-16 w-60 border rounded z-30 shadow-lg text-center text-black bg-white `}
           >
             <li>
               <Link
