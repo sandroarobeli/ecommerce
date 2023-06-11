@@ -31,7 +31,7 @@ export default function ProductDetail() {
     isSuccess,
     isError,
     error,
-  } = useGetProductBySlugQuery(slug);
+  } = useGetProductBySlugQuery({ slug });
 
   const [postReview, { isLoading: submitLoading }] = usePostReviewMutation();
 
@@ -78,7 +78,10 @@ export default function ProductDetail() {
       {isSuccess && (
         <div className="font-roboto">
           <div className="py-2">
-            <Link to="/" className="text-xl text-blue-800 hover:text-blue-900">
+            <Link
+              to="/"
+              className="text-xl font-oswald text-blue-800 hover:text-blue-900"
+            >
               Back to products
             </Link>
           </div>

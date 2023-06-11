@@ -37,7 +37,7 @@ export default function AdminProducts() {
     isSuccess,
     isError,
     error,
-  } = useGetAllProductsQuery(page);
+  } = useGetAllProductsQuery({ page });
 
   const [deleteProduct, { isLoading: isDeleting }] = useDeleteProductMutation();
 
@@ -135,7 +135,7 @@ export default function AdminProducts() {
                         <td className="pr-2 pl-8">{product.productRating}</td>
                         <td className="pr-2 pl-4">
                           <Link
-                            to={`/admin/product/${product.id}`}
+                            to={`/admin/product/${product.slug}`}
                             className="text-blue-800 hover:text-blue-900 mr-1"
                           >
                             Edit

@@ -10,11 +10,11 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     // Products
     getAllProducts: builder.query({
-      query: (page) => `/products/pagination/${page}`,
+      query: ({ page }) => `/products/pagination/${page}`,
       providesTags: ["Product"],
     }),
     getProductBySlug: builder.query({
-      query: (slug) => `/products/product/${slug}`,
+      query: ({ slug }) => `/products/product/${slug}`,
       providesTags: ["Product", "Review"],
     }),
     // updateProductInventory: builder.mutation({
@@ -177,6 +177,25 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Order", "Summary"],
     }),
+    getCloudinarySignature: builder.query({
+      query: ({ token }) => ({
+        url: "/admin/cloudinary-signature",
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+      }),
+    }),
+    uploadImage: builder.mutation({
+      query: (formData) => ({
+        url: `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/auto/upload`,
+        method: "POST",
+        mode: "cors",
+        body: formData,
+      }),
+    }),
     getAdminSummary: builder.query({
       query: ({ token }) => ({
         url: "/admin/summary",
@@ -201,6 +220,71 @@ export const apiSlice = createApi({
       }),
       providesTags: ["Order"],
     }),
+    createProduct: builder.mutation({
+      query: ({
+        token,
+        name,
+        slug,
+        category,
+        image,
+        price,
+        brand,
+        inStock,
+        description,
+      }) => ({
+        url: "/admin/new-product",
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: {
+          name: name,
+          slug: slug,
+          category: category,
+          image: image,
+          price: price,
+          brand: brand,
+          inStock: inStock,
+          description: description,
+        },
+      }),
+      invalidatesTags: ["Product", "Summary"],
+    }),
+    updateProduct: builder.mutation({
+      query: ({
+        id,
+        token,
+        name,
+        slug,
+        price,
+        image,
+        category,
+        brand,
+        inStock,
+        description,
+      }) => ({
+        url: `/admin/product/${id}`,
+        method: "PATCH",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: {
+          name: name,
+          slug: slug,
+          price: price,
+          image: image,
+          category: category,
+          brand: brand,
+          inStock: inStock,
+          description: description,
+        },
+      }),
+      invalidatesTags: ["Product", "Summary"],
+    }),
     deleteProduct: builder.mutation({
       query: ({ id, token }) => ({
         url: `/admin/product/${id}`,
@@ -212,7 +296,7 @@ export const apiSlice = createApi({
         mode: "cors",
         body: {},
       }),
-      invalidatesTags: ["Product"],
+      invalidatesTags: ["Product", "Summary"],
     }),
   }),
 });
@@ -233,7 +317,11 @@ export const {
   usePlaceOrderMutation,
   useUpdatePaidStatusMutation,
   useUpdateDeliveredStatusMutation,
+  useGetCloudinarySignatureQuery,
+  useUploadImageMutation,
   useGetAdminSummaryQuery,
   useGetAdminOrdersQuery,
+  useCreateProductMutation,
+  useUpdateProductMutation,
   useDeleteProductMutation,
 } = apiSlice;
