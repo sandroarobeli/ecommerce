@@ -25,15 +25,18 @@ export default function AddToCartButton({ product }) {
   */
 
   const { currentQuantity, refetch, isFetching, isError, error } =
-    useGetProductBySlugQuery(slug, {
-      selectFromResult: ({ data, refetch, isFetching, isError, error }) => ({
-        currentQuantity: data?.inStock,
-        refetch: refetch,
-        isFetching: isFetching,
-        isError: isError,
-        error: error,
-      }),
-    });
+    useGetProductBySlugQuery(
+      { slug },
+      {
+        selectFromResult: ({ data, refetch, isFetching, isError, error }) => ({
+          currentQuantity: data?.inStock,
+          refetch: refetch,
+          isFetching: isFetching,
+          isError: isError,
+          error: error,
+        }),
+      }
+    );
 
   const addToCartHandler = async () => {
     // refetch here so nothing gets added before unsold quantity is determined!
