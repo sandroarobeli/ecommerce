@@ -9,6 +9,10 @@ const getOrders = require("../controllers/admin/getOrders");
 const createProduct = require("../controllers/admin/createProduct");
 const updateProduct = require("../controllers/admin/updateProduct");
 const deleteProduct = require("../controllers/admin/deleteProduct");
+const deleteOrder = require("../controllers/admin/deleteOrder");
+const getAllUsers = require("../controllers/admin/getAllUsers");
+const updateUserStatus = require("../controllers/admin/updateUserStatus");
+const deleteUser = require("../controllers/admin/deleteUser");
 
 // Initializing the router object
 const router = express.Router();
@@ -61,5 +65,17 @@ router.patch(
 
 // Delete product. Privileged, requires authorization as Admin
 router.delete("/product/:productId", checkAuthorization, deleteProduct);
+
+// Delete order. Privileged, requires authorization as Admin
+router.delete("/order/:orderId", checkAuthorization, deleteOrder);
+
+// Retrieve complete Users list. Privileged, requires authorization as Admin
+router.get("/users", checkAuthorization, getAllUsers);
+
+// Update user status. Privileged, requires authorization as Admin
+router.patch("/user/:updatedUserId", checkAuthorization, updateUserStatus);
+
+// Delete user. Privileged, requires authorization as Admin
+router.delete("/user/:deletedUserId", checkAuthorization, deleteUser);
 
 module.exports = router;

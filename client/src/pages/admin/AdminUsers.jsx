@@ -1,60 +1,55 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useLocation, Link } from "react-router-dom";
 
 import {
-  useGetAllProductsQuery,
-  useDeleteProductMutation,
+  useGetAllUsersQuery,
+  useDeleteUserMutation,
 } from "../../redux/apiSlice";
 import { selectToken } from "../../redux/userSlice";
-import { setPage, selectPage } from "../../redux/pageSlice";
+import DynamicTitle from "../../components/DynamicTitle";
 import AdminNav from "../../components/AdminNav";
 import AdminSearchBar from "../../components/AdminSearchBar";
-import Spinner from "../../components/Spinner";
-import DynamicTitle from "../../components/DynamicTitle";
 import MessageDisplay from "../../components/MessageDisplay";
 import Modal from "../../components/Modal";
 import Alert from "../../components/Alert";
-import Pagination from "../../components/Pagination";
+import Spinner from "../../components/Spinner";
 
-export default function AdminProducts() {
-  const dispatch = useDispatch();
+export default function AdminUsers() {
   const location = useLocation();
   const { pathname } = location;
   const token = useSelector(selectToken);
-  const page = useSelector(selectPage);
-
   const [searchValue, setSearchValue] = useState("");
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [productToDelete, setProductToDelete] = useState("");
+  const [userToDelete, setUserToDelete] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const {
-    data: products,
+    data: users,
     isLoading,
     isSuccess,
     isError,
     error,
-  } = useGetAllProductsQuery({ page });
+  } = useGetAllUsersQuery({ token });
 
-  const [deleteProduct, { isLoading: isDeleting }] = useDeleteProductMutation();
+  const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
 
   // Auto scrolls to the top on page change
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  // Sets value for filtering through existing products
+  // Sets value for filtering through existing users
   const handleSearchValueChange = (event) => {
     setSearchValue(event.target.value.toLowerCase());
   };
 
-  const handleProductDelete = async () => {
+  const handleUserDelete = async () => {
     try {
       setDeleteModalOpen(false);
-      await deleteProduct({ id: productToDelete, token }).unwrap();
+      await deleteUser({ id: userToDelete, token }).unwrap();
       setShowAlert(true);
     } catch (error) {
       setErrorMessage(error.data.message);
@@ -69,19 +64,15 @@ export default function AdminProducts() {
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-5">
-      <DynamicTitle title="Admin products" />
+      <DynamicTitle title="Admin users" />
       <AdminNav pathname={pathname} />
       <div className="overflow-x-auto md:col-span-3">
-        <Pagination
-          toPrevPage={() => dispatch(setPage(page - 1))}
-          toNextPage={() => dispatch(setPage(page + 1))}
-        />
-        <h1 className="mb-4 text-xl">Products</h1>
+        <h1 className="mb-4 text-xl">Users</h1>
         <AdminSearchBar
           value={searchValue}
           onChange={handleSearchValueChange}
-          placeholder="Enter name or category..."
-          label="Search products"
+          placeholder="Enter name or email..."
+          label="Search users"
         />
         {isDeleting && (
           <Spinner
@@ -92,7 +83,7 @@ export default function AdminProducts() {
         )}
         {isLoading && (
           <p className="text-lg animate-pulse text-blue-800">
-            Generating products...
+            Generating users...
           </p>
         )}
         {isError && (
@@ -112,30 +103,35 @@ export default function AdminProducts() {
                 <tr>
                   <th className="px-5 text-left">ID</th>
                   <th className="p-5 text-left">NAME</th>
-                  <th className="p-5 text-left">PRICE</th>
-                  <th className="p-5 text-left">CATEGORY</th>
-                  <th className="p-5 text-left">COUNT</th>
-                  <th className="p-5 text-left">RATING</th>
+                  <th className="p-5 text-left">EMAIL</th>
+                  <th className="pr-9 pl-1 text-left">SINCE</th>
+                  <th className="p-5 text-left">ADMIN</th>
                   <th className="p-5 text-left">ACTIONS</th>
                 </tr>
               </thead>
               <tbody>
-                {products.map(
-                  (product) =>
-                    (product.name.toLowerCase().includes(searchValue) ||
-                      product.category.toLowerCase().includes(searchValue)) && (
-                      <tr key={product.id} className="border-b">
-                        <td className="pr-6 pl-4">
-                          {product.id.substring(20, 24)}
+                {users.map(
+                  (user) =>
+                    (user.name.toLowerCase().includes(searchValue) ||
+                      user.email.toLowerCase().includes(searchValue)) && (
+                      <tr key={user.id} className="border-b">
+                        <td className="pr-7 pl-3">
+                          {user.id.substring(20, 24)}
                         </td>
-                        <td className="p-5">{product.name}</td>
-                        <td className="p-5">${product.price.toFixed(2)}</td>
-                        <td className="pr-2 pl-8">{product.category}</td>
-                        <td className="pr-2 pl-8">{product.inStock}</td>
-                        <td className="pr-2 pl-8">{product.productRating}</td>
+                        <td className="p-5">{user.name}</td>
+                        <td className="pr-9 pl-1">{user.email}</td>
+                        <td className="pr-9 pl-1">
+                          {new Date(user.createdAt)
+                            .toLocaleString()
+                            .substring(0, 10)
+                            .replace(",", "")}
+                        </td>
+                        <td className="pr-2 pl-8">
+                          {user.isAdmin ? "YES" : "NO"}
+                        </td>
                         <td className="pr-2 pl-4">
                           <Link
-                            to={`/admin/product/${product.slug}`}
+                            to={`/admin/user/${user.id}`}
                             className="text-blue-800 hover:text-blue-900 mr-1"
                           >
                             Edit
@@ -144,7 +140,7 @@ export default function AdminProducts() {
                           <button
                             className="text-red-600 hover:text-red-700 active:text-red-800"
                             onClick={() => {
-                              setProductToDelete(product.id);
+                              setUserToDelete(user.id);
                               setDeleteModalOpen(true);
                             }}
                           >
@@ -160,7 +156,7 @@ export default function AdminProducts() {
         )}
       </div>
       <Alert
-        message="Product deleted successfully"
+        message="User deleted successfully"
         show={showAlert}
         onClose={() => setShowAlert(false)}
       />
@@ -171,7 +167,7 @@ export default function AdminProducts() {
         twoButtons={true}
         isOpen={deleteModalOpen}
         onClose={() => setDeleteModalOpen(false)}
-        onSubmit={handleProductDelete}
+        onSubmit={handleUserDelete}
         clearMessage={() => setDeleteModalOpen(false)}
       />
       <Modal

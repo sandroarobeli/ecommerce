@@ -31,6 +31,8 @@ const AdminOrders = lazy(() => import("./pages/admin/AdminOrders"));
 const AdminProducts = lazy(() => import("./pages/admin/AdminProducts"));
 const AdminNewProduct = lazy(() => import("./pages/admin/AdminNewProduct"));
 const AdminEditProduct = lazy(() => import("./pages/admin/AdminEditProduct"));
+const AdminUsers = lazy(() => import("./pages/admin/AdminUsers"));
+const AdminEditUser = lazy(() => import("./pages/admin/AdminEditUser"));
 const OrderConfirmation = lazy(() => import("./pages/OrderConfirmation"));
 const Inactivity = lazy(() => import("./pages/Inactivity"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
@@ -147,6 +149,12 @@ function App() {
                 exact
                 element={<AdminEditProduct />}
               />
+            )}
+            {token && isAdmin && (
+              <Route path="admin/users" exact element={<AdminUsers />} />
+            )}
+            {token && isAdmin && (
+              <Route path="admin/user/:id" exact element={<AdminEditUser />} />
             )}
             <Route
               path="order-confirmation"

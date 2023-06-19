@@ -258,7 +258,9 @@ export default function ProductDetail() {
                     ({product.numberOfReviews} reviews)
                   </a>
                 </li>
-                <li>Description: {product.description}</li>
+                <li>
+                  Description: {product.description.replaceAll(/&#x27;/gi, "'")}
+                </li>
               </ul>
             </div>
             <div>

@@ -12,5 +12,3 @@ export default function Layout({ children }) {
     </div>
   );
 }
-
-// min-h-screen. Keeping it just in case. belongs to the topmost div
