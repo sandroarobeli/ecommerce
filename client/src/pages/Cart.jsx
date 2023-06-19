@@ -23,7 +23,7 @@ export default function Cart() {
   const [showAlert, setShowAlert] = useState(false);
 
   const { refetch, isFetching, isSuccess, isError, error } =
-    useGetAllProductsQuery(page);
+    useGetAllProductsQuery({ page });
 
   // Auto scrolls to the top on page change
   useEffect(() => {

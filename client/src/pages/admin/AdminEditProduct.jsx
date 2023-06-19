@@ -59,15 +59,17 @@ export default function AdminEditProduct() {
   }, []);
 
   useEffect(() => {
-    // Pre populate the fields with product's existing data for convenience
-    setValue("name", product.name);
-    setValue("slug", product.slug);
-    setValue("price", product.price);
-    setValue("image", product.image);
-    setValue("category", product.category);
-    setValue("brand", product.brand);
-    setValue("inStock", product.inStock);
-    setValue("description", product.description);
+    if (product) {
+      // Pre populate the fields with product's existing data for convenience
+      setValue("name", product.name.replaceAll(/&#x27;/gi, "'"));
+      setValue("slug", product.slug);
+      setValue("price", product.price);
+      setValue("image", product.image);
+      setValue("category", product.category);
+      setValue("brand", product.brand);
+      setValue("inStock", product.inStock);
+      setValue("description", product.description.replaceAll(/&#x27;/gi, "'"));
+    }
   }, [product, setValue]);
 
   const imageUploadHandler = async (event, imageField = "image") => {
@@ -140,9 +142,7 @@ export default function AdminEditProduct() {
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-5">
-      <DynamicTitle
-        title={`Profile - ${product?.name}` || "Product profile page"}
-      />
+      <DynamicTitle title="Product profile" />
       <AdminNav pathname="/admin/products" />
       <div className="md:col-span-3">
         {isLoading && (

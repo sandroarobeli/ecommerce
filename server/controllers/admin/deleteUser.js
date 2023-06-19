@@ -1,35 +1,44 @@
-const { validationResult } = require("express-validator");
-require("dotenv").config();
-
 const prisma = require("../../db");
 
-async function deleteAccount(req, res, next) {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return next(new Error("Invalid inputs entered. Please check your data"));
-  }
-
-  const { userId } = req.params;
-  const { email } = req.body;
+async function deleteUser(req, res, next) {
+  const { userId } = req.userData;
+  const { deletedUserId } = req.params;
 
   try {
-    const loggedInUser = await prisma.user.findUnique({
-      where: { id: userId },
+    const currentUser = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        isAdmin: true,
+      },
     });
-
-    if (loggedInUser.email !== email) {
+    const deletedUser = await prisma.user.findUnique({
+      where: {
+        id: deletedUserId,
+      },
+      select: {
+        isAdmin: true,
+      },
+    });
+    // Ensures logged in user has Admin privileges
+    if (!currentUser || !deletedUser || !currentUser.isAdmin) {
       return next(
         new Error(
-          "You are not authorized to delete this account. Please enter a valid email associated with this account and try again."
+          "You are not authorized to perform this function. Admin privileges required"
         )
       );
+    }
+    // Ensures Admin user cannot be deleted
+    if (deletedUser.isAdmin) {
+      return next(new Error("Deleting Admin is not permitted!"));
     }
 
     // Update overall combined product rating and number of reviews
     // Before deleting user, since deleting user deletes user's reviews as well
     const existingReviews = await prisma.review.findMany({
       where: {
-        authorId: userId,
+        authorId: deletedUserId,
       },
     });
 
@@ -86,13 +95,13 @@ async function deleteAccount(req, res, next) {
 
     // Now that all the updates have been up to data, we delete user and all of their reviews
     await prisma.user.delete({
-      where: { id: userId },
+      where: { id: deletedUserId },
     });
 
     res.end();
   } catch (error) {
-    return next(new Error(`Failed to delete: ${error.message}`));
+    return next(new Error(`Failed to delete user: ${error.message}`));
   }
 }
 
-module.exports = deleteAccount;
+module.exports = deleteUser;

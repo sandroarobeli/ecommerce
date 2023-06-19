@@ -34,9 +34,11 @@ export default function DeleteAccount() {
   const submitHandler = async ({ email }) => {
     try {
       await deleteAccount({ id, email, token }).unwrap();
-      // Deleting User's orders will not be performed as the result.
+      // Deleting User's orders will not be performed automatically as the result.
       // That would affect admin's ability to access sales & financial stats
       // Instead per prisma functionality, order.ownerId will be set to Null
+      // And instead of user name it will say DELETED USER.
+      // Deleting deleted user's orders will be under admin functionality anyway
       dispatch(logout());
       navigate("/");
     } catch (error) {

@@ -65,7 +65,6 @@ input[type="file"]::file-selector-button {
   left: calc((100vw - 120px) / 2);
   top: calc((100vh - 120px) / 2);
 }
-/* CONTINUE ADDING CUSTOM CLASSES AS I GO */
 
 /* Modal and CSSTransition classes */
 .modal {

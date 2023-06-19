@@ -97,8 +97,6 @@ export default function PayForOrder() {
     }
   };
 
-  // 4. // another email with the receipt and order confirmation info + possible shipping info
-
   return (
     <>
       <DynamicTitle title="Order review & payment" />

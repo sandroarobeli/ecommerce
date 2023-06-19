@@ -17,18 +17,6 @@ export const apiSlice = createApi({
       query: ({ slug }) => `/products/product/${slug}`,
       providesTags: ["Product", "Review"],
     }),
-    // updateProductInventory: builder.mutation({
-    //   query: (purchasedItems) => ({
-    //     url: "/products/update-inventory",
-    //     method: "PATCH",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     mode: "cors",
-    //     body: purchasedItems,
-    //   }),
-    //   invalidatesTags: ["Product"],
-    // }),
     postReview: builder.mutation({
       query: ({ id, token, content, rating }) => ({
         url: `/products/reviews/${id}`,
@@ -123,6 +111,7 @@ export const apiSlice = createApi({
         method: "GET",
         headers: {
           Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
         },
       }),
       providesTags: ["Order"],
@@ -133,6 +122,7 @@ export const apiSlice = createApi({
         method: "GET",
         headers: {
           Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
         },
       }),
       providesTags: ["Summary"],
@@ -164,6 +154,46 @@ export const apiSlice = createApi({
       invalidatesTags: ["Order", "Summary"],
     }),
     // Admin
+    getAllUsers: builder.query({
+      query: ({ token }) => ({
+        url: "/admin/users",
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+      }),
+      providesTags: ["User"],
+    }),
+    updateUser: builder.mutation({
+      query: ({ id, token, isAdmin }) => ({
+        url: `/admin/user/${id}`,
+        method: "PATCH",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: {
+          isAdmin: isAdmin,
+        },
+      }),
+      invalidatesTags: ["User"],
+    }),
+    deleteUser: builder.mutation({
+      query: ({ id, token }) => ({
+        url: `/admin/user/${id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: {},
+      }),
+      invalidatesTags: ["User", "Product", "Review"],
+    }),
     updateDeliveredStatus: builder.mutation({
       query: ({ id, token }) => ({
         url: `/admin/deliver/${id}`,
@@ -206,7 +236,7 @@ export const apiSlice = createApi({
         },
         mode: "cors",
       }),
-      providesTags: ["Summary"],
+      providesTags: ["Product", "Summary"],
     }),
     getAdminOrders: builder.query({
       query: ({ token }) => ({
@@ -283,7 +313,7 @@ export const apiSlice = createApi({
           description: description,
         },
       }),
-      invalidatesTags: ["Product", "Summary"],
+      invalidatesTags: ["Product"],
     }),
     deleteProduct: builder.mutation({
       query: ({ id, token }) => ({
@@ -298,13 +328,25 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Product", "Summary"],
     }),
+    deleteOrder: builder.mutation({
+      query: ({ id, token }) => ({
+        url: `/admin/order/${id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: {},
+      }),
+      invalidatesTags: ["Order", "Summary"],
+    }),
   }),
 });
 
 export const {
   useGetAllProductsQuery,
   useGetProductBySlugQuery,
-  useUpdateProductInventoryMutation,
   usePostReviewMutation,
   useCredentialLoginMutation,
   useGoogleLoginMutation,
@@ -316,6 +358,9 @@ export const {
   useGetOrderHistoryQuery,
   usePlaceOrderMutation,
   useUpdatePaidStatusMutation,
+  useGetAllUsersQuery,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
   useUpdateDeliveredStatusMutation,
   useGetCloudinarySignatureQuery,
   useUploadImageMutation,
@@ -324,4 +369,5 @@ export const {
   useCreateProductMutation,
   useUpdateProductMutation,
   useDeleteProductMutation,
+  useDeleteOrderMutation,
 } = apiSlice;
