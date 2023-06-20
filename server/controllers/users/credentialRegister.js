@@ -16,7 +16,7 @@ async function credentialRegister(req, res, next) {
 
   try {
     const existingUser = await prisma.user.findUnique({
-      where: { email: email },
+      where: { email: email.toLowerCase() },
     });
 
     if (existingUser) {
@@ -26,7 +26,7 @@ async function credentialRegister(req, res, next) {
     const newUser = await prisma.user.create({
       data: {
         name: name,
-        email: email,
+        email: email.toLowerCase(),
         password: bcrypt.hashSync(password),
       },
     });

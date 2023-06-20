@@ -5,6 +5,8 @@ const checkAuthorization = require("../utils/checkAuthorization");
 const getAllProducts = require("../controllers/products/getAllProducts");
 const getProductBySlug = require("../controllers/products/getProductBySlug");
 const postReview = require("../controllers/products/postReview");
+const getProductFilters = require("../controllers/products/getProductFilters");
+const searchProducts = require("../controllers/products/searchProducts");
 
 // Initializing the router object
 const router = express.Router();
@@ -22,5 +24,11 @@ router.post(
   checkAuthorization,
   postReview
 );
+
+// Returns de-duped properties of all products
+router.get("/filters", getProductFilters);
+
+// Retrieve products based on search parameters
+router.post("/search", searchProducts);
 
 module.exports = router;

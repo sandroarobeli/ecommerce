@@ -13,6 +13,7 @@ async function getAllProducts(req, res, next) {
       },
     });
     res.set("Cache-Control", "no-cache");
+
     res.status(200).json(products);
   } catch (error) {
     return next(new Error("Failed to retrieve products"));

@@ -16,7 +16,7 @@ async function credentialLogin(req, res, next) {
 
   try {
     const existingUser = await prisma.user.findUnique({
-      where: { email: email },
+      where: { email: email.toLowerCase() },
     });
     if (!existingUser) {
       return next(

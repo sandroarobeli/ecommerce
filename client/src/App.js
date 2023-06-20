@@ -19,6 +19,7 @@ const Cart = lazy(() => import("./pages/Cart"));
 const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
+const Search = lazy(() => import("./pages/Search"));
 const ShippingAddress = lazy(() => import("./pages/ShippingAddress"));
 const PaymentMethod = lazy(() => import("./pages/PaymentMethod"));
 const PlaceOrder = lazy(() => import("./pages/PlaceOrder"));
@@ -98,6 +99,7 @@ function App() {
             <Route path="cart" exact element={<Cart />} />
             <Route path="login" exact element={<Login />} />
             <Route path="register" exact element={<Register />} />
+            <Route path="search" exact element={<Search />} />
             {token && (
               <Route
                 path="shipping-address"
