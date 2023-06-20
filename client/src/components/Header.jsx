@@ -77,8 +77,7 @@ export default function Header() {
         title="Search Products"
         titleColor="text-black"
         description="Enter a name, brand or category"
-        twoBut
-        tons={true}
+        twoButtons={true}
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         onSubmit={submitHandler}

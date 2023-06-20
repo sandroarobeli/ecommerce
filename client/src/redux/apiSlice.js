@@ -33,6 +33,34 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Product", "Review"],
     }),
+    getProductFilters: builder.query({
+      query: () => "/products/filters",
+    }),
+    getSearchResults: builder.mutation({
+      query: ({
+        query,
+        category,
+        brand,
+        price,
+        productRating,
+        sort,
+        page,
+        limit,
+      }) => ({
+        url: "/products/search",
+        method: "POST",
+        body: {
+          query: query,
+          category: category,
+          brand: brand,
+          price: price,
+          productRating: productRating,
+          sort: sort,
+          page: page,
+          limit: limit,
+        },
+      }),
+    }),
     // Users
     credentialLogin: builder.mutation({
       query: ({ email, password }) => ({
@@ -348,6 +376,8 @@ export const {
   useGetAllProductsQuery,
   useGetProductBySlugQuery,
   usePostReviewMutation,
+  useGetProductFiltersQuery,
+  useGetSearchResultsMutation,
   useCredentialLoginMutation,
   useGoogleLoginMutation,
   useCredentialRegisterMutation,
