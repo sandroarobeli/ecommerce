@@ -26,9 +26,8 @@ import Pagination from "../components/Pagination";
 // THE ARE ORGANIZED AS IN TABLE WITH HEADERS: DATE USER. CLICKING ON THE ROW
 // TAKES ADMIN TO ACTUAL MESSAGE PAGE (USING PARAMS:MESSAGE-ID) WHICH ALSO
 // ALLOWS DELETING THE MESSAGE AND REPLYING TO SENDER VIA SENDGRID!!!
-// 17. LOOK INTO THE POSSIBILITY FOR ADMIN TO SET THE TAX RATE!!!
 
-// NEXT: ADMIN SETTING TAX RATE
+// NEXT: CONTACT US FORM
 // LIGHTHOUSE. CLEAN UP THE CODE!!!
 // ******************************************************************************
 // ******************************************************************************

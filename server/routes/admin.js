@@ -13,6 +13,8 @@ const deleteOrder = require("../controllers/admin/deleteOrder");
 const getAllUsers = require("../controllers/admin/getAllUsers");
 const updateUserStatus = require("../controllers/admin/updateUserStatus");
 const deleteUser = require("../controllers/admin/deleteUser");
+const updateTaxNShipping = require("../controllers/admin/updateTaxNShipping");
+const getTaxNShipping = require("../controllers/admin/getTaxNShipping");
 
 // Initializing the router object
 const router = express.Router();
@@ -77,5 +79,16 @@ router.patch("/user/:updatedUserId", checkAuthorization, updateUserStatus);
 
 // Delete user. Privileged, requires authorization as Admin
 router.delete("/user/:deletedUserId", checkAuthorization, deleteUser);
+
+// Update tax and / or shipping rates. Privileged, requires authorization as Admin
+router.patch(
+  "/tax-and-shipping",
+  [check("taxRate").isFloat(), check("shippingRate").isFloat()],
+  checkAuthorization,
+  updateTaxNShipping
+);
+
+// Retrieve current tax and / or shipping rates. No token required since Users need it too
+router.get("/tax-and-shipping", getTaxNShipping);
 
 module.exports = router;

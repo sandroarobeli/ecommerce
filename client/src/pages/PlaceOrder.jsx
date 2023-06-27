@@ -10,9 +10,13 @@ import {
   clearCartItems,
 } from "../redux/cartSlice";
 import { selectToken } from "../redux/userSlice";
-import { usePlaceOrderMutation } from "../redux/apiSlice";
+import {
+  usePlaceOrderMutation,
+  useGetTaxNShippingQuery,
+} from "../redux/apiSlice";
 import CheckoutWizard from "../components/CheckoutWizard";
 import DynamicTitle from "../components/DynamicTitle";
+import MessageDisplay from "../components/MessageDisplay";
 import Modal from "../components/Modal";
 import Spinner from "../components/Spinner";
 
@@ -25,6 +29,13 @@ export default function PlaceOrder() {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const {
+    data: taxNShipping,
+    isSuccess,
+    isError,
+    error,
+  } = useGetTaxNShippingQuery();
 
   const [placeOrder, { isLoading }] = usePlaceOrderMutation();
 
@@ -43,9 +54,9 @@ export default function PlaceOrder() {
   );
   const itemsTotal = round2(itemsTotalBeforeRounding);
   // Tax cost is variable, depending on the jurisdiction and will be set by the user
-  const taxTotal = round2(itemsTotal * 0.11);
+  const taxTotal = round2(itemsTotal * (taxNShipping?.taxRate / 100));
   // Shipping and Handling cost is arbitrary and can be set at the user's discretion
-  const shippingTotal = itemsTotal > 200 ? 0 : 15;
+  const shippingTotal = itemsTotal > 200 ? 0 : taxNShipping?.shippingRate;
   const grandTotal = round2(itemsTotal + taxTotal + shippingTotal);
 
   useEffect(() => {
@@ -171,53 +182,65 @@ export default function PlaceOrder() {
           <div>
             <div className="card p-5 mb-4">
               <h2 className="mb-2 text-lg font-semibold">Order Summary</h2>
-              <ul>
-                <li>
-                  <div className="mb-2 flex justify-between">
-                    <div>Items</div>
-                    <div>${itemsTotal.toFixed(2)}</div>
-                  </div>
-                </li>
-                <li>
-                  <div className="mb-2 flex justify-between">
-                    <div>Tax</div>
-                    <div>${taxTotal.toFixed(2)}</div>
-                  </div>
-                </li>
-                <li>
-                  <div className="mb-2 flex justify-between">
-                    <div>Shipping</div>
-                    <div>${shippingTotal.toFixed(2)}</div>
-                  </div>
-                </li>
-                <li>
-                  <div className="mb-2 flex justify-between">
-                    <div>Total</div>
-                    <div>${grandTotal.toFixed(2)}</div>
-                  </div>
-                </li>
-                <li>
-                  <button
-                    aria-label="Place order"
-                    className="primary-button w-full"
-                    onClick={placeOrderHandler}
-                    disabled={isLoading}
-                  >
-                    {isLoading ? (
-                      <span className="flex justify-center items-center">
-                        <Spinner
-                          className="mr-4"
-                          strokeColor="#000000"
-                          strokeWidth="18"
-                        />
-                        Processing
-                      </span>
-                    ) : (
-                      "Place Order"
-                    )}
-                  </button>
-                </li>
-              </ul>
+              {isError && (
+                <MessageDisplay
+                  title="Error:"
+                  message={
+                    error?.data?.message ||
+                    "Unable to retrieve current tax rates. Please try again later"
+                  }
+                  className="alert-error"
+                />
+              )}
+              {isSuccess && (
+                <ul>
+                  <li>
+                    <div className="mb-2 flex justify-between">
+                      <div>Items</div>
+                      <div>${itemsTotal.toFixed(2)}</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="mb-2 flex justify-between">
+                      <div>Tax</div>
+                      <div>${taxTotal.toFixed(2)}</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="mb-2 flex justify-between">
+                      <div>Shipping</div>
+                      <div>${shippingTotal.toFixed(2)}</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="mb-2 flex justify-between">
+                      <div>Total</div>
+                      <div>${grandTotal.toFixed(2)}</div>
+                    </div>
+                  </li>
+                  <li>
+                    <button
+                      aria-label="Place order"
+                      className="primary-button w-full"
+                      onClick={placeOrderHandler}
+                      disabled={isLoading}
+                    >
+                      {isLoading ? (
+                        <span className="flex justify-center items-center">
+                          <Spinner
+                            className="mr-4"
+                            strokeColor="#000000"
+                            strokeWidth="18"
+                          />
+                          Processing
+                        </span>
+                      ) : (
+                        "Place Order"
+                      )}
+                    </button>
+                  </li>
+                </ul>
+              )}
             </div>
           </div>
         </div>
