@@ -8,6 +8,9 @@ const credentialRegister = require("../controllers/users/credentialRegister");
 const googleRegister = require("../controllers/users/googleRegister");
 const updateProfile = require("../controllers/users/updateProfile");
 const deleteAccount = require("../controllers/users/deleteAccount");
+const passwordResetEmail = require("../controllers/users/passwordResetEmail");
+const validatePasswordResetLink = require("../controllers/users/validatePasswordResetLink");
+const updatePassword = require("../controllers/users/updatePassword");
 
 // Initializing the router object
 const router = express.Router();
@@ -57,6 +60,27 @@ router.delete(
   [check("email").not().isEmpty().isEmail().trim().escape()],
   checkAuthorization,
   deleteAccount
+);
+
+// Generate an email with the link to reset User password
+router.post(
+  "/password-reset-email",
+  check("email").not().isEmpty().isEmail().trim().escape(),
+  passwordResetEmail
+);
+
+// Validate time sensitive link to password reset page
+router.get(
+  "/validate-password-reset-link/:emailToken",
+  validatePasswordResetLink
+);
+
+// Update User password
+router.patch(
+  "/update-password",
+  check("email").not().isEmpty().isEmail().trim().escape(),
+  check("password").not().isEmpty().trim().escape(),
+  updatePassword
 );
 
 module.exports = router;

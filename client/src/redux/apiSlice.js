@@ -117,6 +117,16 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["User", "Product", "Review"],
     }),
+    updatePassword: builder.mutation({
+      query: ({ email, password }) => ({
+        url: "/users/update-password",
+        method: "PATCH",
+        body: {
+          email: email,
+          password: password,
+        },
+      }),
+    }),
     deleteAccount: builder.mutation({
       query: ({ id, email, token }) => ({
         url: `/users/delete-account/${id}`,
@@ -131,6 +141,19 @@ export const apiSlice = createApi({
         },
       }),
       invalidatesTags: ["Summary", "User", "Product", "Review"],
+    }),
+    passwordResetEmail: builder.mutation({
+      query: ({ email }) => ({
+        url: "/users/password-reset-email",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: {
+          email: email,
+        },
+      }),
     }),
     // Orders
     getOrderById: builder.query({
@@ -383,7 +406,9 @@ export const {
   useCredentialRegisterMutation,
   useGoogleRegisterMutation,
   useUpdateProfileMutation,
+  useUpdatePasswordMutation,
   useDeleteAccountMutation,
+  usePasswordResetEmailMutation,
   useGetOrderByIdQuery,
   useGetOrderHistoryQuery,
   usePlaceOrderMutation,
