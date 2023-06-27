@@ -1,4 +1,5 @@
 const prisma = require("../../db");
+const generateEmail = require("../../utils/generateEmail");
 
 async function updatePaidStatus(req, res, next) {
   const { orderId } = req.params;
@@ -27,6 +28,7 @@ async function updatePaidStatus(req, res, next) {
         },
       },
     });
+
     // Since the payment has been made, Adjust current quantities of products in DB
     // Updates all at once concurrently
     await Promise.all(
@@ -41,6 +43,31 @@ async function updatePaidStatus(req, res, next) {
             },
           })
       )
+    );
+
+    // Prepare the data to be passed into email function api for dynamic templates
+    const templateData = {
+      timeStamp: new Date().toLocaleString(),
+      dateFormat: "MMMM DD, YYYY h:mm:ss A",
+      orderItems: existingOrder.orderItems.map((item) => ({
+        name: item.name,
+        quantity: item.quantity.toString(),
+        price: item.price.toFixed(2),
+        total: (item.quantity * item.price).toFixed(2),
+      })),
+      shippingAddress: existingOrder.shippingAddress,
+      itemsTotal: existingOrder.itemsTotal.toFixed(2),
+      taxTotal: existingOrder.taxTotal.toFixed(2),
+      shippingTotal: existingOrder.taxTotal.toFixed(2),
+      grandTotal: existingOrder.grandTotal.toFixed(2),
+    };
+
+    // Invoke purchase receipt generating function with order user just paid for
+    await generateEmail(
+      req.body.payer.email_address,
+      "Purchase receipt for order number: " + existingOrder.id,
+      templateData,
+      "d-3219bae17677438fa265ffcbbddbd8af"
     );
 
     res.end();

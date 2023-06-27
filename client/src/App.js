@@ -35,7 +35,11 @@ const AdminEditProduct = lazy(() => import("./pages/admin/AdminEditProduct"));
 const AdminUsers = lazy(() => import("./pages/admin/AdminUsers"));
 const AdminEditUser = lazy(() => import("./pages/admin/AdminEditUser"));
 const OrderConfirmation = lazy(() => import("./pages/OrderConfirmation"));
+const EmailConfirmation = lazy(() => import("./pages/EmailConfirmation"));
 const Inactivity = lazy(() => import("./pages/Inactivity"));
+const PasswordResetEmail = lazy(() => import("./pages/PasswordResetEmail"));
+const ExpiredLink = lazy(() => import("./pages/ExpiredLink"));
+const PasswordResetForm = lazy(() => import("./pages/PasswordResetForm"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 
 function App() {
@@ -163,7 +167,19 @@ function App() {
               exact
               element={<OrderConfirmation />}
             />
+            <Route
+              path="email-confirmation"
+              exact
+              element={<EmailConfirmation />}
+            />
             <Route path="inactivity" exact element={<Inactivity />} />
+            <Route
+              path="password-reset-email"
+              exact
+              element={<PasswordResetEmail />}
+            />
+            <Route path="expired-link" exact element={<ExpiredLink />} />
+            <Route path="valid-link" exact element={<PasswordResetForm />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Suspense>
