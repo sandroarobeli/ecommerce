@@ -58,7 +58,7 @@ async function updatePaidStatus(req, res, next) {
       shippingAddress: existingOrder.shippingAddress,
       itemsTotal: existingOrder.itemsTotal.toFixed(2),
       taxTotal: existingOrder.taxTotal.toFixed(2),
-      shippingTotal: existingOrder.taxTotal.toFixed(2),
+      shippingTotal: existingOrder.shippingTotal.toFixed(2),
       grandTotal: existingOrder.grandTotal.toFixed(2),
     };
 

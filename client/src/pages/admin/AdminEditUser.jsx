@@ -86,49 +86,51 @@ export default function AdminEditUser() {
             onSubmit={handleSubmit(userUpdateHandler)}
           >
             <h1 className="mb-4 text-xl">{`Set User Admin Status for ${user?.name}`}</h1>
-            <div>
-              <button
-                aria-label="Set user as admin"
-                type="button"
-                className={`mb-6 w-[250px] ${
-                  adminStatus ? "primary-button" : "outline-button"
-                }`}
-                onClick={() => setAdminStatus(true)}
-              >
-                Admin User
-              </button>
-            </div>
-            <div>
-              <button
-                aria-label="Set user as regular"
-                type="button"
-                className={`mb-6 w-[250px] ${
-                  adminStatus ? "outline-button" : "primary-button"
-                }`}
-                onClick={() => setAdminStatus(false)}
-              >
-                Regular User
-              </button>
-            </div>
-            <div className="my-6">
-              <button
-                aria-label="Set user status"
-                className="primary-button w-[250px]"
-                disabled={isUpdating}
-              >
-                {isUpdating ? (
-                  <span className="flex justify-center items-center">
-                    <Spinner
-                      className="mr-4"
-                      strokeColor="#000000"
-                      strokeWidth="18"
-                    />
-                    Please wait
-                  </span>
-                ) : (
-                  "Update Status"
-                )}
-              </button>
+            <div className="card mx-auto my-4 px-4 py-6">
+              <div>
+                <button
+                  aria-label="Set user as admin"
+                  type="button"
+                  className={`mb-6 w-[250px] ${
+                    adminStatus ? "primary-button" : "outline-button"
+                  }`}
+                  onClick={() => setAdminStatus(true)}
+                >
+                  Admin User
+                </button>
+              </div>
+              <div>
+                <button
+                  aria-label="Set user as regular"
+                  type="button"
+                  className={`mb-6 w-[250px] ${
+                    adminStatus ? "outline-button" : "primary-button"
+                  }`}
+                  onClick={() => setAdminStatus(false)}
+                >
+                  Regular User
+                </button>
+              </div>
+              <div className="my-6">
+                <button
+                  aria-label="Set user status"
+                  className="primary-button w-[250px]"
+                  disabled={isUpdating}
+                >
+                  {isUpdating ? (
+                    <span className="flex justify-center items-center">
+                      <Spinner
+                        className="mr-4"
+                        strokeColor="#000000"
+                        strokeWidth="18"
+                      />
+                      Please wait
+                    </span>
+                  ) : (
+                    "Update Status"
+                  )}
+                </button>
+              </div>
             </div>
             <div className="my-6">
               <Link

@@ -6,7 +6,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_SERVER_DOMAIN}/api`,
   }),
-  tagTypes: ["Product", "Order", "Summary", "User", "Review"],
+  tagTypes: ["Product", "Order", "Summary", "User", "Review", "TaxNShipping"],
   endpoints: (builder) => ({
     // Products
     getAllProducts: builder.query({
@@ -392,6 +392,26 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Order", "Summary"],
     }),
+    updateTaxNShipping: builder.mutation({
+      query: ({ token, taxRate, shippingRate }) => ({
+        url: "/admin/tax-and-shipping",
+        method: "PATCH",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: {
+          taxRate: taxRate,
+          shippingRate: shippingRate,
+        },
+      }),
+      invalidatesTags: ["TaxNShipping"],
+    }),
+    getTaxNShipping: builder.query({
+      query: () => "/admin/tax-and-shipping",
+      providesTags: ["TaxNShipping"],
+    }),
   }),
 });
 
@@ -425,4 +445,6 @@ export const {
   useUpdateProductMutation,
   useDeleteProductMutation,
   useDeleteOrderMutation,
+  useUpdateTaxNShippingMutation,
+  useGetTaxNShippingQuery,
 } = apiSlice;

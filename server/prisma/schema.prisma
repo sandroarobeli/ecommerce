@@ -7,6 +7,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model TaxNShipping {
+  id               String @id @default(auto()) @map("_id") @db.ObjectId
+  taxRate          Float @default(0)
+  shippingRate     Float @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
 model User {
   id               String @id @default(auto()) @map("_id") @db.ObjectId
   name             String @default("anonymous")

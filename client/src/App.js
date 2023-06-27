@@ -33,6 +33,7 @@ const AdminProducts = lazy(() => import("./pages/admin/AdminProducts"));
 const AdminNewProduct = lazy(() => import("./pages/admin/AdminNewProduct"));
 const AdminEditProduct = lazy(() => import("./pages/admin/AdminEditProduct"));
 const AdminUsers = lazy(() => import("./pages/admin/AdminUsers"));
+const TaxNShipping = lazy(() => import("./pages/admin/TaxNShipping"));
 const AdminEditUser = lazy(() => import("./pages/admin/AdminEditUser"));
 const OrderConfirmation = lazy(() => import("./pages/OrderConfirmation"));
 const EmailConfirmation = lazy(() => import("./pages/EmailConfirmation"));
@@ -161,6 +162,13 @@ function App() {
             )}
             {token && isAdmin && (
               <Route path="admin/user/:id" exact element={<AdminEditUser />} />
+            )}
+            {token && isAdmin && (
+              <Route
+                path="admin/tax-and-shipping"
+                exact
+                element={<TaxNShipping />}
+              />
             )}
             <Route
               path="order-confirmation"

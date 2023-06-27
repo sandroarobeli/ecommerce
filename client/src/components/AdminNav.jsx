@@ -56,6 +56,16 @@ export default function AdminNav({ pathname }) {
         </li>
         <li className="mb-2 text-lg">
           <Link
+            to="/admin/tax-and-shipping"
+            className={`text-blue-800 hover:text-blue-900 ${
+              pathname === "/admin/tax-and-shipping" ? "font-bold" : ""
+            }`}
+          >
+            Tax & Shipping
+          </Link>
+        </li>
+        <li className="mb-2 text-lg">
+          <Link
             to="/admin/messages"
             className={`text-blue-800 hover:text-blue-900 ${
               pathname === "/admin/messages" ? "font-bold" : ""

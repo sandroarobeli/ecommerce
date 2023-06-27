@@ -2,16 +2,14 @@ const { validationResult } = require("express-validator");
 
 const prisma = require("../../db");
 
-async function updateProduct(req, res, next) {
+async function updateTaxNShipping(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return next(new Error("Invalid inputs entered. Please check your data"));
   }
 
   const { userId } = req.userData;
-  const { productId } = req.params;
-  const { name, slug, price, image, category, brand, inStock, description } =
-    req.body;
+  const { taxRate, shippingRate } = req.body;
 
   try {
     const currentUser = await prisma.user.findUnique({
@@ -31,19 +29,13 @@ async function updateProduct(req, res, next) {
       );
     }
 
-    await prisma.product.update({
+    await prisma.taxNShipping.update({
       where: {
-        id: productId,
+        id: "649b51c4c04719835278f9db",
       },
       data: {
-        name: name,
-        slug: slug + "-" + Math.random(),
-        price: price,
-        image: image,
-        category: category,
-        brand: brand,
-        inStock: inStock,
-        description: description,
+        taxRate: taxRate,
+        shippingRate: shippingRate,
       },
     });
 
@@ -53,4 +45,4 @@ async function updateProduct(req, res, next) {
   }
 }
 
-module.exports = updateProduct;
+module.exports = updateTaxNShipping;
