@@ -31,7 +31,11 @@ async function getAllMessages(req, res, next) {
 
     res.status(200).json(messages);
   } catch (error) {
-    return next(new Error(`Failed to retrieve messages: ${error.message}`));
+    return next(
+      new Error(
+        "Failed to retrieve messages. Check the internet connection or try again later"
+      )
+    );
   }
 }
 

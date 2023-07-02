@@ -32,7 +32,9 @@ async function updateDeliveredStatus(req, res, next) {
     res.end();
   } catch (error) {
     return next(
-      new Error(`Failed to update delivery status: ${error.message}`)
+      new Error(
+        "Failed to update delivery status. Check the internet connection or try again later"
+      )
     );
   }
 }

@@ -75,7 +75,7 @@ export default function AdminEditUser() {
             title="Error:"
             message={
               error?.data?.message ||
-              "User cannot be displayed. Please try later"
+              "User cannot be displayed. Check the internet connection or try again later"
             }
             className="alert-error"
           />
@@ -148,7 +148,7 @@ export default function AdminEditUser() {
         titleColor="text-red-600"
         description={
           errorMessage ||
-          "An error ocurred while submitting your request. Please try again later"
+          "Unknown error has ocurred. Check the internet connection or try again later"
         }
         twoButtons={false}
         isOpen={modalOpen}

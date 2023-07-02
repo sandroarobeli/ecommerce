@@ -51,7 +51,7 @@ async function credentialRegister(req, res, next) {
   } catch (error) {
     return next(
       new Error(
-        "Registration failed. Please check your internet connection and try again"
+        "Registration failed. Check the internet connection or try again later"
       )
     );
   }

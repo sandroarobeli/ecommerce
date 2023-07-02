@@ -96,7 +96,7 @@ export default function AdminDashboard() {
             title="Error:"
             message={
               error?.data?.message ||
-              "Summary cannot be displayed. Please try again later"
+              "Summary cannot be displayed. Check the internet connection or try again later"
             }
             className="alert-error"
           />

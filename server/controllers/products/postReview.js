@@ -116,7 +116,11 @@ async function postReview(req, res, next) {
       }
     }
   } catch (error) {
-    return next(new Error(`Failed to add your review: ${error.message}`));
+    return next(
+      new Error(
+        "Failed to add your review. Check the internet connection or try again later"
+      )
+    );
   }
 }
 

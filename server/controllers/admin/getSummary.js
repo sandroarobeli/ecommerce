@@ -54,7 +54,11 @@ async function getSummary(req, res, next) {
 
     res.status(200).json(summary);
   } catch (error) {
-    return next(new Error(`Failed to load the summary: ${error.message}`));
+    return next(
+      new Error(
+        "Failed to load the summary. Check the internet connection or try again later"
+      )
+    );
   }
 }
 

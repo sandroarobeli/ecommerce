@@ -19,7 +19,11 @@ async function getProductBySlug(req, res, next) {
 
     res.status(200).json(product);
   } catch (error) {
-    return next(new Error("Failed to retrieve product"));
+    return next(
+      new Error(
+        "Failed to retrieve the product. Check the internet connection or try again later"
+      )
+    );
   }
 }
 

@@ -21,7 +21,7 @@ function checkAuthorization(req, res, next) {
     const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN_KEY);
     // decodedToken has all the props we assigned, when created it. Namely: userId & password
     req.userData = { userId: decodedToken.userId }; // Adding new property on the fly
-    // calling next() without an error allows request to continue it's journey!
+    // calling next() without an error allows request to continue its journey!
     next();
   } catch (error) {
     return next(

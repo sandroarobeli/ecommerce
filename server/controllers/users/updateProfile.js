@@ -46,7 +46,11 @@ async function updateProfile(req, res, next) {
       res.status(200).json(updatedUser);
     }
   } catch (error) {
-    return next(new Error(`Failed to update: ${error.message}`));
+    return next(
+      new Error(
+        "Failed to update. Check the internet connection or try again later"
+      )
+    );
   }
 }
 

@@ -23,7 +23,11 @@ async function getProductFilters(req, res, next) {
       brands: brands.map((brand) => brand.brand),
     });
   } catch (error) {
-    return next(new Error(`Failed to retrieve properties: ${error.message}`));
+    return next(
+      new Error(
+        "Failed to retrieve properties. Check the internet connection or try again later"
+      )
+    );
   }
 }
 

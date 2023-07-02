@@ -91,7 +91,7 @@ export default function AdminOrders() {
             title="Error:"
             message={
               error?.data?.message ||
-              "Orders cannot be displayed. Please try again later"
+              "Orders cannot be displayed. Check the internet connection or try again later"
             }
             className="alert-error"
           />
@@ -241,7 +241,7 @@ export default function AdminOrders() {
         titleColor="text-red-600"
         description={
           errorMessage ||
-          "An error ocurred while submitting your request. Please try again later"
+          "Unknown error has ocurred. Check the internet connection or try again later"
         }
         twoButtons={false}
         isOpen={errorModalOpen}

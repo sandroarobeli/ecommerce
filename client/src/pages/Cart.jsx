@@ -52,7 +52,7 @@ export default function Cart() {
           title="Error:"
           message={
             error?.data?.message ||
-            "Unknown error has ocurred. Please try again later"
+            "Unknown error has ocurred. Check the internet connection or try again later"
           }
           className="alert-error"
         />

@@ -91,7 +91,11 @@ async function deleteAccount(req, res, next) {
 
     res.end();
   } catch (error) {
-    return next(new Error(`Failed to delete: ${error.message}`));
+    return next(
+      new Error(
+        "Failed to delete. Check the internet connection or try again later"
+      )
+    );
   }
 }
 

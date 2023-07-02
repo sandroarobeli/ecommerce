@@ -65,7 +65,9 @@ async function resetEmail(req, res, next) {
     res.end();
   } catch (error) {
     return next(
-      new Error(`${error.message}: Password reset currently unavailable`)
+      new Error(
+        "Password reset currently unavailable. Check the internet connection or try again later"
+      )
     );
   }
 }

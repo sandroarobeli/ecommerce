@@ -31,7 +31,11 @@ async function getAllUsers(req, res, next) {
 
     res.status(200).json(users);
   } catch (error) {
-    return next(new Error(`Failed to retrieve users: ${error.message}`));
+    return next(
+      new Error(
+        "Failed to retrieve users. Check the internet connection or try again later"
+      )
+    );
   }
 }
 
