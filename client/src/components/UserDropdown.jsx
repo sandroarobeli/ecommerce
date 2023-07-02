@@ -1,7 +1,8 @@
+import { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import { useGetAllMessagesQuery } from "../redux/apiSlice";
 import {
   selectUserStatus,
   selectUserName,
@@ -19,6 +20,14 @@ export default function UserDropdown() {
   const token = useSelector(selectToken);
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
+
+  const { data: messages } = useGetAllMessagesQuery({ token });
+
+  // Reduces the numbers of unread messages to display in the badge for admin
+  const messageCount = useMemo(
+    () => messages?.filter((message) => message.hasBeenRead === false).length,
+    [messages]
+  );
 
   const closeOnEscapeKeyDown = (event) => {
     if ((event.charCode || event.keyCode) === 27) {
@@ -59,6 +68,11 @@ export default function UserDropdown() {
             onClick={() => setShowMenu((state) => !state)}
           >
             {userName}
+            {messageCount > 0 && isAdmin && (
+              <span className="absolute -top-3 -right-3 inline-block min-w-2 m-auto py-1 px-2 rounded-full text-xs align-middle bg-red-600">
+                {messageCount}
+              </span>
+            )}
           </button>
           <ul
             className={`${

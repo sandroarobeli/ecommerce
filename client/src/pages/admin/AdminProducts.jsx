@@ -92,7 +92,7 @@ export default function AdminProducts() {
         )}
         {isLoading && (
           <p className="text-lg animate-pulse text-blue-800">
-            Generating products...
+            Loading products...
           </p>
         )}
         {isError && (
