@@ -16,7 +16,7 @@ export const apiSlice = createApi({
     "Message",
   ],
   endpoints: (builder) => ({
-    // Products
+    /* PRODUCTS */
     getAllProducts: builder.query({
       query: ({ page }) => `/products/pagination/${page}`,
       providesTags: ["Product"],
@@ -69,7 +69,7 @@ export const apiSlice = createApi({
         },
       }),
     }),
-    // Users
+    /* USERS */
     credentialLogin: builder.mutation({
       query: ({ email, password }) => ({
         url: "/users/credential-login",
@@ -179,7 +179,7 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Message"],
     }),
-    // Orders
+    /* ORDERS */
     getOrderById: builder.query({
       query: ({ id, token }) => ({
         url: `/orders/order/${id}`,
@@ -228,7 +228,7 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Order", "Summary"],
     }),
-    // Admin
+    /* ADMIN */
     getAllMessages: builder.query({
       query: ({ token }) => ({
         url: "/admin/messages",

@@ -63,7 +63,11 @@ async function googleLogin(req, res, next) {
       });
     }
   } catch (error) {
-    return next(new Error(`Login failed: ${error?.message || error}`));
+    return next(
+      new Error(
+        "Login failed. Check the internet connection or try again later"
+      )
+    );
   }
 }
 

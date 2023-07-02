@@ -172,7 +172,7 @@ export default function Search() {
           title="Error:"
           message={
             error?.data?.message ||
-            "Products cannot be displayed. Please try again later"
+            "Products cannot be displayed. Check the internet connection or try again later"
           }
           className="alert-error"
         />

@@ -32,7 +32,11 @@ async function getOrderById(req, res, next) {
 
     res.status(200).json(existingOrder);
   } catch (error) {
-    return next(new Error(`Failed to retrieve your order: ${error.message}`));
+    return next(
+      new Error(
+        "Failed to retrieve the order. Check the internet connection or try again later"
+      )
+    );
   }
 }
 

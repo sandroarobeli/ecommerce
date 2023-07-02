@@ -44,9 +44,7 @@ async function placeOrder(req, res, next) {
   } catch (error) {
     return next(
       new Error(
-        error
-          ? error
-          : "Failed to process your order. Please contact our customer support 1 800 777 7777"
+        "Failed to process your order. Please contact our customer support 1 800 777 7777"
       )
     );
   }

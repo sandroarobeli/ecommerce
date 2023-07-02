@@ -45,7 +45,11 @@ async function sendReply(req, res, next) {
 
     res.end();
   } catch (error) {
-    return next(new Error(`Failed to send your reply: ${error.message}`));
+    return next(
+      new Error(
+        "Failed to send your reply. Check the internet connection or try again later"
+      )
+    );
   }
 }
 

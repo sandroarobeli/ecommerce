@@ -21,7 +21,11 @@ async function sendMessage(req, res, next) {
 
     res.end();
   } catch (error) {
-    return next(new Error(`Message sending failed: ${error.message}`));
+    return next(
+      new Error(
+        "Message sending failed. Check the internet connection or try again later"
+      )
+    );
   }
 }
 

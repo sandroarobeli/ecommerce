@@ -122,7 +122,7 @@ export default function ContactForm() {
         titleColor="text-red-600"
         description={
           errorMessage ||
-          "An error ocurred while submitting your request. Please try again later"
+          "Unknown error has ocurred. Check the internet connection or try again later"
         }
         twoButtons={false}
         isOpen={modalOpen}

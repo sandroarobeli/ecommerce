@@ -28,7 +28,11 @@ async function deleteOrder(req, res, next) {
 
     res.end();
   } catch (error) {
-    return next(new Error(`Failed to delete order: ${error.message}`));
+    return next(
+      new Error(
+        "Failed to delete order. Check the internet connection or try again later"
+      )
+    );
   }
 }
 

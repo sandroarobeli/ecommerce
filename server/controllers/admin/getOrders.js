@@ -31,7 +31,11 @@ async function getOrders(req, res, next) {
 
     res.status(200).json(orders);
   } catch (error) {
-    return next(new Error(`Failed to load order history: ${error.message}`));
+    return next(
+      new Error(
+        "Failed to load order history. Check the internet connection or try again later"
+      )
+    );
   }
 }
 

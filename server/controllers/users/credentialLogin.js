@@ -68,7 +68,7 @@ async function credentialLogin(req, res, next) {
   } catch (error) {
     return next(
       new Error(
-        `Login failed. Please check your internet connection and try again`
+        "Login failed. Check the internet connection or try again later"
       )
     );
   }

@@ -15,9 +15,6 @@ import Pagination from "../components/Pagination";
 // 1. ALWAYS: !!!TEST LIGHTHOUSE ON EVERY PAGE COMPLETION!!!
 // 4. MAKE SURE MONGO ATLAS SETTINGS ONLY ALLOW ACCESS TO lazikadigital.com
 // AS OPPOSED TO ANY '0.0.0.0' DOMAIN NOW (KEEP BOTH TILL FULLY TESTED)
-// 7. ON CONTROLLERS, 500 MAKE CODE ERROR HARD CODED LIKE IN LOGIN CONTROLLER
-// WHEN ALL THE CONTROLLERS ARE COMPLETED AND TESTED. NOTE: ERROR MESSAGES AND BACKUP
-// MESSAGES SHOULD BE TEXTUALLY SAME
 
 // NEXT: PREP AND DEPLOY
 // LIGHTHOUSE. CLEAN UP THE CODE!!!
@@ -52,7 +49,7 @@ export default function Home() {
           title="Error:"
           message={
             error?.data?.message ||
-            "Unknown error has ocurred. Please try again later"
+            "Unknown error has ocurred. Check the internet connection or try again later"
           }
           className="alert-error"
         />

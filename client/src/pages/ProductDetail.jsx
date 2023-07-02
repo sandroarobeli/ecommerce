@@ -70,7 +70,7 @@ export default function ProductDetail() {
           title="Error:"
           message={
             error?.data?.message ||
-            "Unknown error has ocurred. Please try again later"
+            "Unknown error has ocurred. Check the internet connection or try again later"
           }
           className="alert-error"
         />
@@ -100,7 +100,7 @@ export default function ProductDetail() {
                       title="Error:"
                       message={
                         error?.data?.message ||
-                        "Unknown error has ocurred. Unable to display comments"
+                        "Unknown error has ocurred. Unable to display reviews"
                       }
                       className="alert-error"
                     />
@@ -289,7 +289,7 @@ export default function ProductDetail() {
         titleColor="text-red-600"
         description={
           errorMessage ||
-          "An error ocurred while submitting your review. Please try again later"
+          "Unknown error has ocurred. Check the internet connection or try again later"
         }
         twoButtons={false}
         isOpen={modalOpen}

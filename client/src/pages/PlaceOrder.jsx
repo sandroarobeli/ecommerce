@@ -187,7 +187,7 @@ export default function PlaceOrder() {
                   title="Error:"
                   message={
                     error?.data?.message ||
-                    "Unable to retrieve current tax rates. Please try again later"
+                    "Unable to retrieve current rates. Check the internet connection or try again later"
                   }
                   className="alert-error"
                 />

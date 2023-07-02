@@ -20,7 +20,9 @@ async function validatePasswordResetLink(req, res, next) {
     });
   } catch (error) {
     return next(
-      new Error(`Invalid link. Please try again later: ${error.message}`)
+      new Error(
+        "Invalid link. Check the internet connection or try again later"
+      )
     );
   }
 }

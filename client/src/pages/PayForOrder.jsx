@@ -108,7 +108,7 @@ export default function PayForOrder() {
           title="Error:"
           message={
             error?.data?.message ||
-            "Order cannot be displayed. Please try later"
+            "Order cannot be displayed. Check the internet connection or try again later"
           }
           className="alert-error"
         />

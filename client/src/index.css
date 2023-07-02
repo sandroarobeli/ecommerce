@@ -37,7 +37,7 @@ textarea {
   @apply block rounded-lg border border-gray-200 shadow-md;
 }
 
-/* Buttons */
+/* BUTTONS */
 .primary-button {
   @apply rounded px-4 py-2 shadow outline-none font-oswald font-semibold uppercase bg-amber-300 hover:bg-amber-400 transition-all active:bg-amber-500 active:scale-95;
 }
@@ -50,7 +50,7 @@ textarea {
   @apply rounded px-4 py-2 shadow outline-none font-oswald font-semibold uppercase text-white bg-red-600 hover:bg-red-700 transition-all active:bg-red-800 active:scale-95;
 }
 
-/* File upload button */
+/* FILE UPLOAD BUTTON */
 input[type="file"]::file-selector-button {
   @apply rounded px-4 py-2 shadow outline-none border-0 font-oswald font-semibold uppercase bg-amber-300 hover:bg-amber-400 transition-all active:bg-amber-500 active:scale-95;
 }
@@ -59,14 +59,14 @@ input[type="file"]::file-selector-button {
   @apply flex justify-center py-2 hover:bg-black hover:text-white;
 }
 
-/* Spinner */
+/* SPINNER */
 .spinner {
   position: absolute;
   left: calc((100vw - 120px) / 2);
   top: calc((100vh - 120px) / 2);
 }
 
-/* Modal and CSSTransition classes */
+/* MODAL AND CSSTransition CLASSES */
 .modal {
   @apply fixed top-0 right-0 bottom-0 left-0 bg-black/50 font-roboto flex justify-center items-center opacity-0 transition-all ease-in-out duration-300 pointer-events-none;
 }
@@ -79,7 +79,7 @@ input[type="file"]::file-selector-button {
   @apply opacity-0;
 }
 
-/* Alert and CSSTransition classes */
+/* ALERT AND CSSTransition CLASSES */
 .alert {
   @apply fixed top-0 right-0 bottom-0 left-0 flex justify-center items-center opacity-0 transition-opacity ease-out duration-200 pointer-events-none;
 }
@@ -92,7 +92,7 @@ input[type="file"]::file-selector-button {
   @apply opacity-0;
 }
 
-/* Message display variants */
+/* MESSAGE DISPLAY VARIANTS */
 .alert-error {
   @apply bg-red-100 text-red-800;
 }

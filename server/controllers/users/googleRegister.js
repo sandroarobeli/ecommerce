@@ -70,7 +70,11 @@ async function googleRegister(req, res, next) {
       });
     }
   } catch (error) {
-    return next(new Error(`Registration failed: ${error?.message || error}`));
+    return next(
+      new Error(
+        "Registration failed. Check the internet connection or try again later"
+      )
+    );
   }
 }
 

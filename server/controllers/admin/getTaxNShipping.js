@@ -21,7 +21,11 @@ async function getTaxNShipping(req, res, next) {
       shippingRate: taxNShipping.shippingRate,
     });
   } catch (error) {
-    return next(new Error(`Failed to retrieve rates: ${error.message}`));
+    return next(
+      new Error(
+        "Failed to retrieve current rates. Check the internet connection or try again later"
+      )
+    );
   }
 }
 

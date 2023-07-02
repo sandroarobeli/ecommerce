@@ -16,7 +16,11 @@ async function getAllProducts(req, res, next) {
 
     res.status(200).json(products);
   } catch (error) {
-    return next(new Error("Failed to retrieve products"));
+    return next(
+      new Error(
+        "Failed to retrieve products. Check the internet connection or try again later"
+      )
+    );
   }
 }
 

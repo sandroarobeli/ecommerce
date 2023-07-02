@@ -89,7 +89,7 @@ export default function AdminMessages() {
             title="Error:"
             message={
               error?.data?.message ||
-              "Messages cannot be displayed. Please try again later"
+              "Messages cannot be displayed. Check the internet connection or try again later"
             }
             className="alert-error"
           />

@@ -44,7 +44,11 @@ async function handleMessage(req, res, next) {
       res.end();
     }
   } catch (error) {
-    return next(new Error(`Unable to execute: ${error.message}`));
+    return next(
+      new Error(
+        "Unable to execute at this time. Check the internet connection or try again later"
+      )
+    );
   }
 }
 

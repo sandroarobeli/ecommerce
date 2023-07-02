@@ -49,7 +49,11 @@ async function updateProduct(req, res, next) {
 
     res.end();
   } catch (error) {
-    return next(new Error(`Failed to update: ${error.message}`));
+    return next(
+      new Error(
+        "Failed to update. Check the internet connection or try again later"
+      )
+    );
   }
 }
 
