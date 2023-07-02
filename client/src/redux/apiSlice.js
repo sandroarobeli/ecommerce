@@ -6,7 +6,15 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_SERVER_DOMAIN}/api`,
   }),
-  tagTypes: ["Product", "Order", "Summary", "User", "Review", "TaxNShipping"],
+  tagTypes: [
+    "Product",
+    "Order",
+    "Summary",
+    "User",
+    "Review",
+    "TaxNShipping",
+    "Message",
+  ],
   endpoints: (builder) => ({
     // Products
     getAllProducts: builder.query({
@@ -155,6 +163,22 @@ export const apiSlice = createApi({
         },
       }),
     }),
+    sendMessage: builder.mutation({
+      query: ({ sender, subject, content }) => ({
+        url: "/users/contact",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: {
+          sender: sender,
+          subject: subject,
+          content: content,
+        },
+      }),
+      invalidatesTags: ["Message"],
+    }),
     // Orders
     getOrderById: builder.query({
       query: ({ id, token }) => ({
@@ -205,6 +229,59 @@ export const apiSlice = createApi({
       invalidatesTags: ["Order", "Summary"],
     }),
     // Admin
+    getAllMessages: builder.query({
+      query: ({ token }) => ({
+        url: "/admin/messages",
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+      }),
+      providesTags: ["Message"],
+    }),
+    getMessageById: builder.query({
+      query: ({ id, token }) => ({
+        url: `/admin/message/${id}`,
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      }),
+      invalidatesTags: ["Message"],
+    }),
+    deleteMessage: builder.mutation({
+      query: ({ id, token }) => ({
+        url: `/admin/message/${id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: {},
+      }),
+      invalidatesTags: ["Message"],
+    }),
+    sendReply: builder.mutation({
+      query: ({ emailTo, subject, content, token }) => ({
+        url: "/admin/reply",
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: {
+          emailTo: emailTo,
+          subject: subject,
+          content: content,
+        },
+      }),
+      invalidatesTags: ["Message"],
+    }),
     getAllUsers: builder.query({
       query: ({ token }) => ({
         url: "/admin/users",
@@ -429,10 +506,15 @@ export const {
   useUpdatePasswordMutation,
   useDeleteAccountMutation,
   usePasswordResetEmailMutation,
+  useSendMessageMutation,
   useGetOrderByIdQuery,
   useGetOrderHistoryQuery,
   usePlaceOrderMutation,
   useUpdatePaidStatusMutation,
+  useGetAllMessagesQuery,
+  useGetMessageByIdQuery,
+  useDeleteMessageMutation,
+  useSendReplyMutation,
   useGetAllUsersQuery,
   useUpdateUserMutation,
   useDeleteUserMutation,

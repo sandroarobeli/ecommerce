@@ -34,13 +34,20 @@ const AdminNewProduct = lazy(() => import("./pages/admin/AdminNewProduct"));
 const AdminEditProduct = lazy(() => import("./pages/admin/AdminEditProduct"));
 const AdminUsers = lazy(() => import("./pages/admin/AdminUsers"));
 const TaxNShipping = lazy(() => import("./pages/admin/TaxNShipping"));
+const AdminMessages = lazy(() => import("./pages/admin/AdminMessages"));
+const AdminMessageDetail = lazy(() =>
+  import("./pages/admin/AdminMessageDetail")
+);
+const AdminMessageReply = lazy(() => import("./pages/admin/AdminMessageReply"));
 const AdminEditUser = lazy(() => import("./pages/admin/AdminEditUser"));
 const OrderConfirmation = lazy(() => import("./pages/OrderConfirmation"));
 const EmailConfirmation = lazy(() => import("./pages/EmailConfirmation"));
+const ContactConfirmation = lazy(() => import("./pages/ContactConfirmation"));
 const Inactivity = lazy(() => import("./pages/Inactivity"));
 const PasswordResetEmail = lazy(() => import("./pages/PasswordResetEmail"));
 const ExpiredLink = lazy(() => import("./pages/ExpiredLink"));
 const PasswordResetForm = lazy(() => import("./pages/PasswordResetForm"));
+const ContactForm = lazy(() => import("./pages/ContactForm"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 
 function App() {
@@ -170,6 +177,23 @@ function App() {
                 element={<TaxNShipping />}
               />
             )}
+            {token && isAdmin && (
+              <Route path="admin/messages" exact element={<AdminMessages />} />
+            )}
+            {token && isAdmin && (
+              <Route
+                path="admin/message/:id"
+                exact
+                element={<AdminMessageDetail />}
+              />
+            )}
+            {token && isAdmin && (
+              <Route
+                path="admin/reply/:id"
+                exact
+                element={<AdminMessageReply />}
+              />
+            )}
             <Route
               path="order-confirmation"
               exact
@@ -180,6 +204,11 @@ function App() {
               exact
               element={<EmailConfirmation />}
             />
+            <Route
+              path="contact-confirmation"
+              exact
+              element={<ContactConfirmation />}
+            />
             <Route path="inactivity" exact element={<Inactivity />} />
             <Route
               path="password-reset-email"
@@ -188,6 +217,7 @@ function App() {
             />
             <Route path="expired-link" exact element={<ExpiredLink />} />
             <Route path="valid-link" exact element={<PasswordResetForm />} />
+            <Route path="contact" exact element={<ContactForm />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Suspense>

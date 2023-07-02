@@ -11,6 +11,7 @@ const deleteAccount = require("../controllers/users/deleteAccount");
 const passwordResetEmail = require("../controllers/users/passwordResetEmail");
 const validatePasswordResetLink = require("../controllers/users/validatePasswordResetLink");
 const updatePassword = require("../controllers/users/updatePassword");
+const sendMessage = require("../controllers/users/sendMessage");
 
 // Initializing the router object
 const router = express.Router();
@@ -65,7 +66,7 @@ router.delete(
 // Generate an email with the link to reset User password
 router.post(
   "/password-reset-email",
-  check("email").not().isEmpty().isEmail().trim().escape(),
+  [check("email").not().isEmpty().isEmail().trim().escape()],
   passwordResetEmail
 );
 
@@ -78,9 +79,22 @@ router.get(
 // Update User password
 router.patch(
   "/update-password",
-  check("email").not().isEmpty().isEmail().trim().escape(),
-  check("password").not().isEmpty().trim().escape(),
+  [
+    check("email").not().isEmpty().isEmail().trim().escape(),
+    check("password").not().isEmpty().trim().escape(),
+  ],
   updatePassword
+);
+
+// Send a contact message which admin can read
+router.post(
+  "/contact",
+  [
+    check("sender").not().isEmpty().isEmail().trim().escape(),
+    check("subject").trim().escape(),
+    check("content").not().isEmpty().trim().escape(),
+  ],
+  sendMessage
 );
 
 module.exports = router;

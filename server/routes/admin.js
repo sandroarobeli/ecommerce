@@ -15,6 +15,9 @@ const updateUserStatus = require("../controllers/admin/updateUserStatus");
 const deleteUser = require("../controllers/admin/deleteUser");
 const updateTaxNShipping = require("../controllers/admin/updateTaxNShipping");
 const getTaxNShipping = require("../controllers/admin/getTaxNShipping");
+const getAllMessages = require("../controllers/admin/getAllMessages");
+const handleMessage = require("../controllers/admin/handleMessage");
+const sendReply = require("../controllers/admin/sendReply");
 
 // Initializing the router object
 const router = express.Router();
@@ -90,5 +93,26 @@ router.patch(
 
 // Retrieve current tax and / or shipping rates. No token required since Users need it too
 router.get("/tax-and-shipping", getTaxNShipping);
+
+// Retrieve all messages sent by users. Privileged, requires authorization as Admin
+router.get("/messages", checkAuthorization, getAllMessages);
+
+// Retrieve message by its id. Privileged, requires authorization as Admin
+router.get("/message/:messageId", checkAuthorization, handleMessage);
+
+// Delete message. Privileged, requires authorization as Admin
+router.delete("/message/:messageId", checkAuthorization, handleMessage);
+
+// Send reply message. Privileged, requires authorization as Admin
+router.post(
+  "/reply",
+  [
+    check("emailTo").not().isEmpty().isEmail().trim().escape(),
+    check("subject").trim(),
+    check("content").not().isEmpty().trim(),
+  ],
+  checkAuthorization,
+  sendReply
+);
 
 module.exports = router;

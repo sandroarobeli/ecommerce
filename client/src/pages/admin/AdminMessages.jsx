@@ -1,40 +1,39 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import {
-  useGetAllUsersQuery,
-  useDeleteUserMutation,
+  useGetAllMessagesQuery,
+  useDeleteMessageMutation,
 } from "../../redux/apiSlice";
 import { selectToken } from "../../redux/userSlice";
 import DynamicTitle from "../../components/DynamicTitle";
 import AdminNav from "../../components/AdminNav";
 import AdminSearchBar from "../../components/AdminSearchBar";
 import MessageDisplay from "../../components/MessageDisplay";
-import Modal from "../../components/Modal";
 import Alert from "../../components/Alert";
+import Modal from "../../components/Modal";
 import Spinner from "../../components/Spinner";
 
-export default function AdminUsers() {
+export default function AdminMessages() {
+  const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
   const token = useSelector(selectToken);
   const [searchValue, setSearchValue] = useState("");
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [userToDelete, setUserToDelete] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const {
-    data: users,
+    data: messages,
     isLoading,
     isSuccess,
     isError,
     error,
-  } = useGetAllUsersQuery({ token });
+  } = useGetAllMessagesQuery({ token });
 
-  const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
+  const [deleteMessage, { isLoading: isDeleting }] = useDeleteMessageMutation();
 
   // Auto scrolls to the top on page change
   useEffect(() => {
@@ -46,33 +45,32 @@ export default function AdminUsers() {
     setSearchValue(event.target.value.toLowerCase());
   };
 
-  const handleUserDelete = async () => {
+  const handleMessageDelete = async (id) => {
     try {
-      setDeleteModalOpen(false);
-      await deleteUser({ id: userToDelete, token }).unwrap();
+      await deleteMessage({ id: id, token: token }).unwrap();
       setShowAlert(true);
     } catch (error) {
       setErrorMessage(error.data.message);
-      setErrorModalOpen(true);
+      setModalOpen(true);
     }
   };
 
   const handleClearError = () => {
-    setErrorModalOpen(false);
+    setModalOpen(false);
     setErrorMessage("");
   };
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-5">
-      <DynamicTitle title="Admin users" />
+      <DynamicTitle title="Admin messages" />
       <AdminNav pathname={pathname} />
       <div className="overflow-x-auto md:col-span-3">
-        <h1 className="mb-4 text-xl">Users</h1>
+        <h1 className="mb-4 text-xl">Messages</h1>
         <AdminSearchBar
           value={searchValue}
           onChange={handleSearchValueChange}
-          placeholder="Enter name or email..."
-          label="Search users"
+          placeholder="Enter sender email..."
+          label="Search messages"
         />
         {isDeleting && (
           <Spinner
@@ -83,7 +81,7 @@ export default function AdminUsers() {
         )}
         {isLoading && (
           <p className="text-lg animate-pulse text-blue-800">
-            Loading users...
+            Loading messages...
           </p>
         )}
         {isError && (
@@ -91,7 +89,7 @@ export default function AdminUsers() {
             title="Error:"
             message={
               error?.data?.message ||
-              "Users cannot be displayed. Please try again later"
+              "Messages cannot be displayed. Please try again later"
             }
             className="alert-error"
           />
@@ -101,48 +99,59 @@ export default function AdminUsers() {
             <table className="min-w-full">
               <thead className="border-b">
                 <tr>
-                  <th className="px-5 text-left">ID</th>
-                  <th className="p-5 text-left">NAME</th>
-                  <th className="p-5 text-left">EMAIL</th>
-                  <th className="pr-9 pl-1 text-left">SINCE</th>
-                  <th className="p-5 text-left">ADMIN</th>
-                  <th className="p-5 text-left">ACTIONS</th>
+                  <th className="p-5 text-left">FROM</th>
+                  <th className="pl-10 pr-0 text-left">DATE</th>
+                  <th className="p-5 text-center">SUBJECT</th>
+                  <th className="pl-2 pr-8 text-center">CONTENT</th>
+                  <th className="pl-2 pr-8 text-left">ACTIONS</th>
                 </tr>
               </thead>
               <tbody>
-                {users.map(
-                  (user) =>
-                    (user.name.toLowerCase().includes(searchValue) ||
-                      user.email.toLowerCase().includes(searchValue)) && (
-                      <tr key={user.id} className="border-b">
-                        <td className="pr-7 pl-3">
-                          {user.id.substring(20, 24)}
-                        </td>
-                        <td className="p-5">{user.name}</td>
-                        <td className="pr-9 pl-1">{user.email}</td>
-                        <td className="pr-9 pl-1">
-                          {new Date(user.createdAt)
+                {messages.map(
+                  (message) =>
+                    message.sender.toLowerCase().includes(searchValue) && (
+                      <tr
+                        key={message.id}
+                        className={`border-b ${
+                          message.hasBeenRead ? "" : "bg-gray-100"
+                        }`}
+                      >
+                        <td className="pl-0 pr-10">{message.sender}</td>
+                        <td className="pl-0 pr-10">
+                          {new Date(message.createdAt)
                             .toLocaleString()
-                            .substring(0, 10)
+                            .substring(0, 21)
                             .replace(",", "")}
                         </td>
-                        <td className="pr-2 pl-8">
-                          {user.isAdmin ? "YES" : "NO"}
+                        <td
+                          className="p-5 cursor-pointer"
+                          onClick={() =>
+                            navigate(`/admin/message/${message.id}`)
+                          }
+                        >
+                          {message.subject
+                            ? message.subject.replaceAll(/&#x27;/gi, "'")
+                            : "No subject"}
                         </td>
-                        <td className="pr-2 pl-4">
-                          <Link
-                            to={`/admin/user/${user.id}`}
-                            className="text-blue-800 hover:text-blue-900 mr-1"
-                          >
-                            Edit
-                          </Link>
-                          &nbsp;
+                        <td
+                          className="px-20 cursor-pointer"
+                          onClick={() =>
+                            navigate(`/admin/message/${message.id}`)
+                          }
+                        >
+                          {message.content.substring(0, 35).length > 20
+                            ? message.content
+                                .replaceAll(/&#x27;/gi, "'")
+                                .substring(0, 35) + "..."
+                            : message.content
+                                .replaceAll(/&#x27;/gi, "'")
+                                .substring(0, 35)}
+                        </td>
+                        <td className="p-5">
                           <button
+                            aria-label="Delete this message"
                             className="text-red-600 hover:text-red-700 active:text-red-800"
-                            onClick={() => {
-                              setUserToDelete(user.id);
-                              setDeleteModalOpen(true);
-                            }}
+                            onClick={() => handleMessageDelete(message.id)}
                           >
                             Delete
                           </button>
@@ -156,19 +165,9 @@ export default function AdminUsers() {
         )}
       </div>
       <Alert
-        message="User deleted successfully"
+        message="Message deleted!"
         show={showAlert}
         onClose={() => setShowAlert(false)}
-      />
-      <Modal
-        title="Proceed with deletion?"
-        titleColor="text-red-600"
-        description="Please note, deletion is irreversible and cannot be undone!"
-        twoButtons={true}
-        isOpen={deleteModalOpen}
-        onClose={() => setDeleteModalOpen(false)}
-        onSubmit={handleUserDelete}
-        clearMessage={() => setDeleteModalOpen(false)}
       />
       <Modal
         title="Delete Error"
@@ -178,7 +177,7 @@ export default function AdminUsers() {
           "An error ocurred while submitting your request. Please try again later"
         }
         twoButtons={false}
-        isOpen={errorModalOpen}
+        isOpen={modalOpen}
         onClose={handleClearError}
         clearMessage={handleClearError}
       />
