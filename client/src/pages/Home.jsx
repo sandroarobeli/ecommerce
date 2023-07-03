@@ -12,14 +12,10 @@ import Pagination from "../components/Pagination";
 // REMEMBER: ID QUERY ==> USE MESSAGE DISPLAY, IF MUTATION ==> USE MODAL
 // IF BOTH ==> USE BOTH (AS A GENERAL RULE)
 
-// 1. ALWAYS: !!!TEST LIGHTHOUSE ON EVERY PAGE COMPLETION!!!
-// 4. MAKE SURE MONGO ATLAS SETTINGS ONLY ALLOW ACCESS TO lazikadigital.com
+// ALWAYS: TEST LIGHTHOUSE ON EVERY PAGE COMPLETION
+// 2. MAKE SURE MONGO ATLAS SETTINGS ONLY ALLOW ACCESS TO lazikadigital.com
 // AS OPPOSED TO ANY '0.0.0.0' DOMAIN NOW (KEEP BOTH TILL FULLY TESTED)
 
-// NEXT: PREP AND DEPLOY
-// LIGHTHOUSE. CLEAN UP THE CODE!!!
-// ******************************************************************************
-// ******************************************************************************
 export default function Home() {
   const dispatch = useDispatch();
   // The page and setPage need to be global, because Cart uses them as well and it can't have pagination
